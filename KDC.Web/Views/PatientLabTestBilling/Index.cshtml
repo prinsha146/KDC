@@ -1,0 +1,68 @@
+﻿@model IEnumerable<KDC.DL.ViewModel.PatientBillingVM>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <h1>Patient Lab Test List</h1>
+    <ol class="breadcrumb">
+        <li class="list"><a href="@Url.Action("Index", "PatientBilling")"><i class="fa fa-arrow-left"></i> Patient List </a></li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-body">
+            <div class="table-responsive">
+                <table id="example" class="table table-bordered table-striped table-condensed">
+                    <thead>
+                        <tr class="">
+                            <th>
+                                Patient Name
+                            </th>
+                            <th>
+                                Lab Code
+                            </th>
+                            <th>
+                                Service
+                            </th>
+                            <th>
+                                Group Id
+                            </th>
+                            <th>
+                                Unit
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.PatientName</td>
+                                <td>@item.LabCode</td>
+                                <td>@item.Service</td>
+                                <td>@item.GroupId</td>
+                                <td>@item.Unit</td>
+                                <td>@item.Amount</td>
+                                <td>
+                                    @Html.ActionLink("Details", "Details", new { pid = item.PatientId, sid = item.ServiceId }) |
+                                    @*@Html.ActionLink("Edit", "Edit", new { id = item.PatientLabTestId }) |*@
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.PatientLabTestId }) 
+
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

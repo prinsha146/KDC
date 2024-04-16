@@ -1,0 +1,123 @@
+﻿@model IEnumerable<KDC.DL.ViewModel.OPDPatientVM>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <h1>Patient List</h1>
+    <ol class="breadcrumb">
+		@if (Convert.ToInt32(Session["RoleId"]) == 2 || Convert.ToInt32(Session["RoleId"]) == 1)
+		{
+        <li class="list"><a href="@Url.Action("Create", "OPDPatient")"><i class="fa fa-plus-circle"></i> Add </a></li>
+		}
+    </ol>
+</section>
+
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-body">
+            <div class="row">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    {
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Patient Code</label>
+                                <input type="text" class="form-control" name="PatientCode" id="PatientCode" />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                @Html.DropDownList("PatientName", null, "-- Select --", new { @class = "form-control select2" })
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label><span style="color:#fff">print</span></label>
+                                <input type="submit" class="form-control btn btn-primary" name="search" id="search" value="Search" />
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="table-responsive">
+                <table id="example" class="table table-bordered table-striped table-condensed">
+                    <thead>
+                        <tr class="">
+                            <th>
+                                Patient Name
+                            </th>
+                            <th>
+                                Gender
+                            </th>
+                            <th>
+                                Age
+                            </th>
+                            <th>
+                                Phone
+                            </th>
+                            <th>
+                                Address
+                            </th>
+                            <th>Patient Code</th>
+                            <th>Entered Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.PatientName </td>
+                                <td>
+                                    @if (item.Gender == "M")
+                                    {
+                                        <span>Male</span>
+                                    }
+                                    else if (item.Gender == "F")
+                                    {
+                                        <span>Female</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Other</span>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelitem => item.Age)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Phone)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PatientCode)
+                                </td>
+                                <td>
+                                    @(((DateTime)item.EnteredDate).ToString("yyyy-MM-dd"))
+                                </td>
+
+                                <td>
+                                    @*@Html.ActionLink(" ", "Edit", new { id = item.PatientId }, new { @class = "fa fa-pencil text-primary", title = "Edit" }) <span>|</span>*@
+									<a href="@Url.Action("Edit", "OPDPatient", new { id = item.PatientId})"><span class="btn btn-warning btn-xs">Edit</span></a>
+                                    @*@Html.ActionLink(" ", "Details", new { id = item.PatientId }, new { @class = "fa fa-book text-success", title = "Details" }) <span>|</span>*@
+                                    @Html.ActionLink(" ", "Delete", new { id = item.PatientId }, new { @class = "fa fa-trash text-danger", title = "Delete" })
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+

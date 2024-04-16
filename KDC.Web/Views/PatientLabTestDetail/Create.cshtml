@@ -1,0 +1,94 @@
+﻿@model IEnumerable<KDC.DL.ViewModel.PatientLabTestDetailVM>
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var patient = ViewBag.Personal;
+    var labDetail = ViewBag.LabDetail;
+}
+
+<section class="content-header">
+    <h1>Add Lab Detail</h1>
+    <ol class="breadcrumb">
+        <li class="list"><a href="@Url.Action("Index", "Candidate")"><i class="fa fa-arrow-left"></i> List </a></li>
+    </ol>
+</section>
+
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-body">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="col-md-12">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="col-sm-4">
+                        <label class="control-label">Lab Code:</label>
+                        <div class="">
+                            <input type="text" id="LabCode" name="LabCode" value="@patient.LabCode" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group col-sm-4">
+                                <label class="control-label">Patient Name</label>
+                                <div class="">
+                                    <input type="text" value="@patient.PatientName" name="Patient" class="form-control" readonly />
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-4">
+                                <label class="control-label">Invoice No</label>
+                                <div class="">
+                                    <input type="text" value="@patient.InvoiceNo" name="InvoiceNo" class="form-control" readonly />
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-4">
+                                <label class="control-label">Date:</label>
+                                <div class="">
+                                    <input type="text" value="@DateTime.Today.ToString("yyyy-MM-dd")" name="Date" class="form-control" readonly />
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <hr />
+                        <div class="form-group col-sm-12">
+                                @foreach (var item in Model)
+                                {
+
+                                    <div class="form-group col-sm-4">
+                                        <label><strong><u>@item.GroupName</u></strong></label> (@item.ServiceName)<br />
+                                        <label class="control-label">@item.Particular</label>
+                                        <div class="">
+                                            <input type="hidden" value="@item.PatientLabTestDetailId" name="item" />
+                                            <input type="hidden" value="@item.ServiceLabDetailId" name="Service" />
+                                            <input type="text" value="@item.Result" name="Result_@item.PatientLabTestDetailId" id="@item.Result" class="form-control" />
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+
+
+                    </div>
+
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group col-sm-3">
+                        <div class="col-md-offset-2 ">
+                            <input type="submit" value="Save" class="btn btn-primary" id="btn" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

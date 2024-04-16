@@ -1,0 +1,75 @@
+﻿@model KDC.DL.Models.MS_VaccinationBatch
+
+@{
+    ViewBag.Title = "Details";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MS_VaccinationBatch</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Details)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Manufacturer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Manufacturer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BatchNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BatchNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfManufacture)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfManufacture)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfExpiry)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfExpiry)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VaccinationTypeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VaccinationTypeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDeleted)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.VaccinationBatchId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

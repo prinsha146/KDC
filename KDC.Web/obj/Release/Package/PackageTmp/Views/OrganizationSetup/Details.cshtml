@@ -1,0 +1,111 @@
+﻿@model KDC.DL.Models.MS_OrganizationSetup
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<section class="content-header">
+    <h1>
+        Organization Details
+    </h1>
+    <ol class="breadcrumb">
+        <li class="list"><a href="@Url.Action("Index", "OrganizationSetup")"><i class="fa fa-arrow-left"></i> List </a></li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box">
+        <div class="box-body">
+            <div class="form-horizontal">
+
+                <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.OrganizationName, "Organization Name", new { @class = "control-label" })
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="form-control">@Html.ValueFor(model => model.OrganizationName)</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.Address, "Address", new { @class = "control-label" })
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="form-control">@Html.ValueFor(model => model.Address)</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.Contact, "Contact", new { @class = "control-label" })
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="form-control">@Html.ValueFor(model => model.Contact)</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.Email, "Email", new { @class = "control-label" })
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="form-control">@Html.ValueFor(model => model.Email)</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.Website, "Website", new { @class = "control-label" })
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="form-control">@Html.ValueFor(model => model.Website)</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.Fax, "Fax", new { @class = "control-label" })
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="form-control">@Html.ValueFor(model => model.Fax)</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.PAN, "PAn", new { @class = "control-label" })
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="form-control">@Html.ValueFor(model => model.PAN)</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.GccCodeNo, "GCC Code", new { @class = "control-label" })
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="form-control">@Html.ValueFor(model => model.GccCodeNo)</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.OrganizationName, "Is Active", new { @class = "control-label" })
+                    </div>
+                    <div class="col-sm-6">
+                        @if (Model.IsActive == true)
+                        {
+                            <span class="label label-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="label label-danger">Inactive</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

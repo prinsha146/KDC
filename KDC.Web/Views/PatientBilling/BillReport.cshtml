@@ -1,0 +1,134 @@
+﻿@model IEnumerable<KDC.DL.ViewModel.PatientBillVM>
+@{
+	ViewBag.Title = "BillReport";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+	@using (Html.BeginForm())
+	{
+	@Html.AntiForgeryToken()
+		{
+		<div class="col-sm-3">
+			<div class="form-group">
+				<label>From Date</label>
+				<input type="date" class="form-control EngDate" name="From" id="From" />
+			</div>
+		</div>
+
+		<div class="col-sm-3">
+			<div class="form-group">
+				<label>To</label>
+				<input type="date" class="form-control EngDate" name="To" id="To" />
+			</div>
+		</div>
+
+		<div class="col-sm-2">
+			<div class="form-group">
+				<label><span style="color:#fff">print</span></label>
+				<input type="submit" class="form-control btn btn-primary" name="" value="Search" id="Search" />
+			</div>
+		</div>
+		}
+	}
+	<div class="col-sm-2">
+		<div class="form-group">
+			<label><span style="color:#fff">print</span></label>
+			<a class="btn btn-success form-control" href="javascript:void(0);" onclick="printPageArea('printableArea')">Print</a>
+		</div>
+	</div>
+
+
+
+</div>
+
+<div class="content">
+	<div class="box">
+		<div class="box-primary">
+			<div class="col-sm-12">
+				<table class="table table-bordered table-striped">
+					@{decimal amount = 0; decimal discount = 0; decimal net = 0;}
+					<thead>
+						<tr>
+							<th>Invoice</th>
+							<th>Manual No</th>
+							<th>Patient's Name</th>
+							<th>Amount</th>
+							<th>Discount(%)</th>
+							<th>Net</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+							@foreach (var item in Model)
+							{
+							<tr>
+								<td>@item.InvoiceNo</td>
+								<td>@item.ManualNo</td>
+								<td>@item.PatientName</td>
+								<td>@item.TotalAmount</td>
+								<td>@item.Discount</td>
+								<td>@item.Net</td>
+							</tr>
+								if (ViewBag.BillTotal != null)
+								{
+									foreach (var a in (ViewBag.BillTotal as List<KDC.DL.ViewModel.PatientBillVM>).Where(s => s.InvoiceDateAD == item.InvoiceDateAD))
+									{
+
+									<tr class="text-danger">
+										<td></td>
+										<td></td>
+										<td>Total</td>
+										<td>@a.TotalAmount</td>
+										<td>@a.Discount</td>
+										<td>@a.Net</td>
+									</tr>
+									}
+									
+								}
+								//foreach (var a in (ViewBag.BillTotal as List<KDC.DL.ViewModel.PatientBillVM>).Where(s => s.InvoiceDateAD == item.InvoiceDateAD))
+								//{
+								@*if (ViewBag.BillTotal == null)
+								{
+								<tr>
+									<td>@item.InvoiceNo</td>
+									<td>@item.ManualNo</td>
+									<td>@item.PatientName</td>
+									<td>@item.TotalAmount</td>
+									<td>@item.Discount</td>
+									<td>@item.Net</td>
+								</tr>*@
+								}
+
+								@*<tr>
+									<td></td>
+									<td></td>
+									<td>Total</td>
+									<td>@a.TotalAmount</td>
+									<td>@a.Discount</td>
+									<td>@a.Net</td>
+								</tr>*@
+								@*}*@
+
+								@*//amount += item.TotalAmount;
+								//discount += item.Discount;
+								//net += item.Net;*@
+							}
+							@*<tr>
+								<td></td>
+								<td></td>
+								<td>Total</td>
+								<td>@a.TotalAmount</td>
+								<td>@a.Discount</td>
+								<td>@a.Net</td>
+							</tr>
+
+						}*@
+
+					</tbody>
+
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,193 @@
+﻿@model IEnumerable<KDC.DL.ViewModel.PatientBillVM>
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var patient = ViewBag.Patient;
+}
+
+
+
+<section class="content-header">
+    <h1>Patient Bill</h1>
+    <ol class="breadcrumb">
+        <li class="list"><a href="@Url.Action("Index", "PatientBilling")"><i class="fa fa-arrow-left"></i> Patient List </a></li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-body">
+            <div class="col-md-12 container">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div><center>INVOICE</center></div>
+                        <div class="col-sm-4">
+                            <span>Lab Code:</span>&nbsp;&nbsp; <strong>@patient.LabCode</strong>
+                        </div>
+                        <div class="col-sm-4">
+                            <span>Date(AD):</span>&nbsp;&nbsp; <strong>@(((DateTime)patient.InvoiceDateAD).ToString("yyyy/MM/dd"))</strong>
+                        </div>
+                        <div class="col-sm-4">
+                            <span>Date(BS):</span>&nbsp;&nbsp; <strong>@patient.InvoiceDateBS</strong>
+                        </div>
+                        <div class="col-sm-4">
+                            <span>Invoice No.</span> &nbsp;&nbsp; <strong>@patient.InvoiceNo</strong>
+                        </div>
+                        <div class="col-sm-4">
+                            <span>Manual No.</span> &nbsp;&nbsp; <strong>@patient.ManualNo</strong>
+                        </div>
+						<div class="clearfix"></div>
+                        <div class="col-sm-4">
+                            <span>Patient's Name:</span>&nbsp;&nbsp; <strong>@patient.PatientName</strong>
+                        </div>
+                        <div class="col-sm-4">
+                            <span>Age:</span>&nbsp;&nbsp; <strong>@patient.Age</strong>
+                        </div>
+                        <div class="col-sm-4">
+                            <span>Gender:</span>&nbsp;&nbsp; <strong>@patient.Gender</strong>
+                        </div>
+                        <div class="col-sm-4">
+                            <span>Address:</span>&nbsp;&nbsp; <strong>@patient.Address</strong>
+                        </div>
+                        <div class="col-sm-4">
+                            <span>Referrer:</span>&nbsp;&nbsp; <strong>@patient.Referrer</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <tr>
+                            <th>Sn.</th>
+                            <th>Description</th>
+                            <th>Unit</th>
+                            <th>Unit Rs.</th>
+                            <th>Amount</th>
+                        </tr>
+                        @{ int i = 1; }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@i</td>
+                                <td>@item.Service</td>
+                                <td>@item.Unit</td>
+                                <td>@item.UnitPrice</td>
+                                <td>@item.Amount</td>
+                            </tr>
+                            i++;
+                        }
+                    </table>
+
+
+                </div>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="col-sm-6"></div>
+                <div class="col-sm-4 container">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+							<table class="table">
+								<tr>
+									<th>Amount : </th>
+									<td> @patient.TotalAmount</td>
+								</tr>
+								<tr>
+									<th>Net : </th>
+									<td> @patient.Net</td>
+								</tr>
+								<tr>
+									<th>Tender : </th>
+									<td> @patient.Tender</td>
+								</tr>
+								<tr>
+									<th>Change : </th>
+									<td> @patient.Change</td>
+								</tr>
+							</table>
+                            @*<span>Amount: </span> <b> @patient.TotalAmount </b><br />
+                            <span>Net:</span> <b>@patient.Net </b><br />
+                            <span>Tender:</span> <b>@patient.Tender </b><br />
+                            <span>Change:</span> <b>@patient.Change </b><br />*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12">
+                @*<div class="container">*@
+                    <span>Teller&nbsp;: &nbsp;</span> @patient.EnteredBy
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <span>In Words: &nbsp;Rs.&nbsp;</span> <input type="text" id="Words" name="Words" style="text-align:center; width: 400px;" readonly> 
+                        </div>
+                    </div>
+                @*</div>*@
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script>
+
+    var a = @patient.Net;
+    //alert(a);
+    var th = ['', 'Thousand', 'Million', 'Billion'];
+    var dg = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
+    var tn = ['Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+    var tw = ['Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+    window.onload = toWords(a);
+    function toWords(s) {
+        s = s.toString();
+        
+        s = s.replace(/[\, ]/g, '');
+        if (s != parseFloat(s))
+            return 'not a number';
+        var x = s.indexOf('.');
+        if (x == -1) x = s.length;
+        if (x > 15) return 'too big';
+        var n = s.split(''); var str = '';
+        var sk = 0;
+        for (var i = 0; i < x; i++) {
+            if ((x - i) % 3 == 2) {
+                if (n[i] == '1') {
+                    str += tn[Number(n[i + 1])] + ' ';
+                    i++;
+                    sk = 1;
+                } else
+                    if (n[i] != 0) {
+                        str += tw[n[i] - 2] + ' ';
+                        sk = 1;
+                    }
+            }
+            else if (n[i] != 0) {
+                str += dg[n[i]] + ' ';
+                if ((x - i) % 3 == 0)
+                    str += 'Hundred ';
+                sk = 1;
+            }
+            if ((x - i) % 3 == 1) {
+                if (sk) str += th[(x - i - 1) / 3] + ' ';
+                sk = 0;
+            }
+        }
+        if (x != s.length) {
+            var y = s.length;
+            str += 'point ';
+            for (var i = x + 1; i < y; i++)
+                str += dg[n[i]] + ' ';
+        }
+        //alert(str.replace(/\s+/g, ' '));
+        //return str.replace(/\s+/g, ' ');
+        document.getElementById('Words').value = str.replace(/\s+/g, ' ') + 'Only';
+    }
+</script>
+

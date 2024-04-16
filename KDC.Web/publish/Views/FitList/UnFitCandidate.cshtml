@@ -1,0 +1,53 @@
+﻿@model IEnumerable<KDC.DL.ViewModel.CandidateVM>
+@{
+    ViewBag.Title = "UnFitCandidate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content-header">
+    <h1>Lab Report List</h1>
+    <ol class="breadcrumb">
+        <li class="list"><a href="@Url.Action("Index", "Candidate")"><i class="fa fa-arrow-left"></i> Candidate List </a></li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div>
+                        <center><h2>UNFIT</h2></center>
+                        <b>Failed Candidate: </b> <b>@ViewBag.Failed</b>
+
+                        <span class="pull-right">Date: <b>@DateTime.Today.ToString("dd/MM/yyyy")</b></span>
+                    </div>
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-sm-4">
+
+                            <div class="table-bordered">
+                                S.No: @item.CandidateID <br />
+                                <center>
+                                    @if (item.PhotoScanned != null && item.PhotoScanned != "")
+                                    {
+                                        <div class="col-sm-3">
+                                            <a href="~/images/@item.CandidateID/CandidatePhoto/@item.PhotoScanned" target="_blank"><img src="~/images/@item.CandidateID/CandidatePhoto/@item.PhotoScanned" height="100" width="100" /></a>
+                                        </div>
+                                    }
+                                    @item.CandidateName <br />
+                                    Age: @item.Age &nbsp; &nbsp; &nbsp; PP.No.@item.PassportNo
+
+                                </center>
+
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

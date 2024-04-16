@@ -1,0 +1,55 @@
+﻿@model IEnumerable<KDC.DL.ViewModel.VaccinationReportVM>
+@{
+    ViewBag.Title = "XrayList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-sm-12">
+    <h3>XRAY Report</h3>
+    <div class="box box-primary">
+        <div class="box-body">
+            @foreach (var item in Model)
+    {
+        <div id="printableArea">
+            <div style="font-weight: Bold; font-size: 15px; font-family: sans-serif; width: 210mm; height: 297mm; background: url('http://kdc.com.dandelion.arvixe.com/images/xray.jpg'); background-size: cover;">
+                <div style="text-transform:Uppercase;margin-top: 152px;position: absolute;left: 653px;">00001</div>
+                <div style="text-transform: Uppercase;margin-top: 183px;position: absolute;left: 656px;">RV- @item.RVNoToday</div>
+                <div style="text-transform: Uppercase;margin-top: 227px;position: absolute;left: 338px;">@item.CandidateName</div>
+                <div style="text-transform: Uppercase;margin-top: 254px;position: absolute;left: 554px;">@(item.DOB_AD != null ? ((DateTime)item.DOB_AD).ToString("yyyy/MM/dd") : "")  </div>
+                <div style="text-transform: Uppercase;margin-top: 254px;position: absolute;left: 675px;">Male</div>
+
+                <div style="text-transform: Uppercase;margin-top: 284px;position: absolute;left: 95px;">1990/01/01</div>
+                <div style="text-transform: Uppercase;margin-top: 311px;position: absolute;left: 229px;">@item.PassportNo</div>
+
+                <div class="text-uppercase" style="margin-top: 338px;position: absolute;left: 625px;">
+                    <img width="100px" src="http://kdc.com.dandelion.arvixe.com/images/tick.png" style="width: 15px;">
+                </div>
+
+                <div class="text-uppercase" style="margin-top: 364px;position: absolute;left: 626px;">
+                    <img width="100px" src="http://kdc.com.dandelion.arvixe.com/images/tick.png" style="width: 15px;">
+                </div>
+
+                <div class="text-uppercase" style="margin-top: 479px;position: absolute;TEXT-ALIGN: CENTER;LEFT: 400PX;">
+                    @item.CountryName
+                </div>
+                <div>
+                    <svg id="barcode" style="margin-top: 450px; position: absolute; left: -4px;height:90px"></svg>
+                    <script>
+
+                                JsBarcode("#B_@item.Barcode", "@item.Barcode");
+
+                    </script>
+                </div>
+                <div class="text-uppercase" style="margin-top: 632px;position: absolute;left: 606px;">
+                    <img src="http://kdc.com.dandelion.arvixe.com/images/lungs.JPG" style="width: 195px;">
+                </div>
+
+            </div>
+        </div>
+}
+
+            <div class="clearfix"></div>
+
+        </div>
+    </div>
+</div>

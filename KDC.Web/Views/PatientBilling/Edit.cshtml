@@ -1,0 +1,151 @@
+﻿@model KDC.DL.Models.BL_Patient
+@{
+	ViewBag.Title = "Edit";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<section class="content-header">
+	<h1>Edit Candidate</h1>
+	<ol class="breadcrumb">
+		<li class="list"><a href="@Url.Action("Index", "Candidate")"><i class="fa fa-arrow-left"></i> List </a></li>
+	</ol>
+</section>
+
+
+<section class="content">
+	<div class="box box-primary">
+		<div class="box-body">
+
+			@using (Html.BeginForm())
+			{
+			@Html.AntiForgeryToken()
+
+				<div class="col-md-12">
+					@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+					@Html.HiddenFor(model => model.PatientId)
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group col-sm-3">
+								<label class="control-label">Date:</label>
+								<span class="text-danger">*</span>
+								<div class="">
+									@Html.TextBoxFor(model => model.InvoiceDateAD, "{0: yyyy/MM/dd}", new { @class = "form-control EngDate", @required = "required" })
+									@Html.ValidationMessageFor(model => model.InvoiceDateAD, "", new { @class = "text-danger" })
+								</div>
+							</div>
+
+							<div class="form-group col-sm-3">
+								<label class="control-label">Date(BS): </label>
+								<div class="">
+									@Html.TextBoxFor(model => model.InvoiceDateBS, new { @class = "form-control nepaliDate" })
+									@Html.ValidationMessageFor(model => model.InvoiceDateBS, "", new { @class = "text-danger" })
+								</div>
+							</div>
+
+							<div class="form-group col-sm-3">
+								<label class="control-label">Manual No.</label>
+								<div class="">
+									@Html.TextBoxFor(model => model.ManualNo, new { @class = "form-control" })
+									@Html.ValidationMessageFor(model => model.ManualNo, "", new { @class = "text-danger" })
+								</div>
+							</div>
+
+							<div class="form-group col-sm-3">
+								<label class="control-label">Invoice No.</label>
+								<div class="">
+									@Html.TextBoxFor(model => model.InvoiceNo, new { @class = "form-control", @readonly = "readonly" })
+									@Html.ValidationMessageFor(model => model.InvoiceNo, "", new { @class = "text-danger" })
+								</div>
+							</div>
+							
+
+						
+							<div class="clearfix"></div>
+
+							<div class="form-group col-sm-3">
+								<label class="control-label">Patient's Name</label>
+								<div class="">
+									@Html.TextBoxFor(model => model.PatientName, new { @class = "form-control" })
+									@Html.ValidationMessageFor(model => model.PatientName, "", new { @class = "text-danger" })
+								</div>
+							</div>
+
+							<div class="form-group col-sm-3">
+								<label class="control-label">Age</label>
+								<div class="">
+									@Html.TextBoxFor(model => model.Age, new { @class = "form-control" })
+									@Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+								</div>
+							</div>
+							
+							<div class="form-group col-sm-3">
+								<label class="control-label">Sex</label>
+								<div class="">
+									@if (Model.Gender == "M")
+									{
+									<input type="radio" id="Gender" name="Gender" value="M" checked /><span> Male &nbsp;&nbsp;&nbsp;</span>
+									<input type="radio" id="Gender" name="Gender" value="F" /><span> Female &nbsp;&nbsp;&nbsp;</span>
+									<input type="radio" id="Gender" name="Gender" value="O" /> <span>Other</span>
+									@Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+									}
+									@if (Model.Gender == "F")
+									{
+									<input type="radio" id="Gender" name="Gender" value="M" /><span> Male &nbsp;&nbsp;&nbsp;</span>
+									<input type="radio" id="Gender" name="Gender" value="F" checked /><span> Female &nbsp;&nbsp;&nbsp;</span>
+									<input type="radio" id="Gender" name="Gender" value="O" /> <span>Other</span>
+									@Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+									}
+									@if (Model.Gender == "O")
+									{
+									<input type="radio" id="Gender" name="Gender" value="M" /><span> Male &nbsp;&nbsp;&nbsp;</span>
+									<input type="radio" id="Gender" name="Gender" value="F" /><span> Female &nbsp;&nbsp;&nbsp;</span>
+									<input type="radio" id="Gender" name="Gender" value="O" checked /> <span>Other</span>
+									@Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+									}
+
+								</div>
+							</div>
+							<div class="clearfix"></div>
+
+							<div class="form-group col-sm-3">
+								<label class="control-label">Address</label>
+								<div class="">
+									@Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+									@Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+								</div>
+							</div>
+
+							<div class="form-group col-sm-3">
+								<label class="control-label">Phone</label>
+								<div class="">
+									@Html.TextBoxFor(model => model.PhoneMobile, new { @class = "form-control" })
+									@Html.ValidationMessageFor(model => model.PhoneMobile, "", new { @class = "text-danger" })
+								</div>
+							</div>
+
+							<div class="form-group col-sm-3">
+								<label class="control-label">Referrer</label>
+								<div class="">
+									@Html.DropDownListFor(model => model.ReferrerId, null, "-- Select --", new { @class = "form-control select2" })
+									@Html.ValidationMessageFor(model => model.ManualNo, "", new { @class = "text-danger" })
+								</div>
+							</div>
+
+						</div>
+
+						<div class="form-group col-sm-3">
+							<div class="col-sm-2">
+								<input type="submit" id="btn" value="Save" class="btn btn-success" />
+							</div>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</section>
+
+
+

@@ -1,0 +1,8 @@
+E:\Amsoft_project\Kantipur Diagostic\KDC\KDC.DESKTOP\obj\Release\KDC.DESKTOP.csprojResolveAssemblyReference.cache
+E:\Amsoft_project\Kantipur Diagostic\KDC\KDC.DESKTOP\obj\Release\KDC.DESKTOP.FrmCandidateAdd.resources
+E:\Amsoft_project\Kantipur Diagostic\KDC\KDC.DESKTOP\obj\Release\KDC.DESKTOP.FrmCandidateVerify.resources
+E:\Amsoft_project\Kantipur Diagostic\KDC\KDC.DESKTOP\obj\Release\KDC.DESKTOP.Login.resources
+E:\Amsoft_project\Kantipur Diagostic\KDC\KDC.DESKTOP\obj\Release\KDC.DESKTOP.MainForm.resources
+E:\Amsoft_project\Kantipur Diagostic\KDC\KDC.DESKTOP\obj\Release\KDC.DESKTOP.Properties.Resources.resources
+E:\Amsoft_project\Kantipur Diagostic\KDC\KDC.DESKTOP\obj\Release\KDC.DESKTOP.csproj.GenerateResource.Cache
+E:\Amsoft_project\Kantipur Diagostic\KDC\KDC.DESKTOP\obj\Release\KDC.DESKTOP.csproj.CoreCompileInputs.cache

@@ -1,0 +1,155 @@
+﻿@model List<KDC.DL.ViewModel.VaccinationReportVM>
+	@{
+		ViewBag.Title = "SearchLabReport";
+		Layout = "~/Views/Shared/_Layout.cshtml";
+	}
+
+	<div class="col-sm-12">
+		<div class="box box-primary">
+			<div class="box-body">
+
+				@foreach (var item in Model)
+				{
+				<div id="printableArea">
+					<div style="font-size: 9px; font-family: sans-serif; width: 210mm; height: 297mm; background: url('../../images/medical.jpg'); background-size: cover;">
+
+						<div style="margin-top: 104px; position: absolute;">
+							<table style="margin-left: 29px; width: 195mm;">
+								<tbody>
+									<tr>
+										<td style="border:1px solid transparent;text-align:center;font-size:11px">FULLY AUTOMATED COMPUTERISED LABORATORY</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<table style="margin-left: 29px; width: 195mm;font-size: 12px;margin-top:-6px">
+								<tbody>
+									<tr>
+										<td colspan="2" style="border-left: 1px solid transparent;border-top: 1px solid transparent;font-weight: Bold;width: 300;">Visa No. : <span style="">@item.VisaNo</span></td>
+										<td colspan="2" style="border-left: 1px solid transparent;border-top: 1px solid transparent;font-weight: Bold;width: 230px;">Visa Date : <span style="font-weight: Bold">@item.VisaDate</span></td>
+										<td colspan="2" style="border-right: 1px solid transparent; border-left: 1px solid transparent; border-top: 1px solid transparent; padding:2px 4px; font-weight: Bold;">RQ No. : <span style="font-weight: Bold">@item.RQNoManpower</span></td>
+									</tr>
+								</tbody>
+							</table>
+
+							<table valign="top" style="padding:100px;border-collapse: collapse;border: 2px solid #808080;width: 195mm;font-family: -webkit-body;font-size: 13px;margin-left: 29px;" border="1px" id="printTable">
+								<tbody>
+									<tr>
+										<td colspan="2" style="padding:2px 4px; border-right: 1px solid transparent">
+											Ref .Code : <span style="font-weight: Bold">@item.GccCode</span><br>
+											<span style="display: block; border-right: 1px solid transparent">Name : <span style="text-transform:uppercase;font-weight:Bold">@item.CandidateName</span></span>
+											<span style="display: block; border-right: 1px solid transparent"> Country: <span style="text-transform: uppercase; font-weight: Bold">@item.CountryName</span></span>
+										</td>
+										<td colspan="2" style="padding:2px 4px">ID : @item.LabCode <br> <span style="display:block;">P.P.NO. :<span style="font-weight: Bold"> @item.PassportNo</span></span></td>
+										<td valign="top" style="padding:2px 4px">Height : <span style="font-weight:bold">@item.Height_in_cm</span> <br> </td>
+										<td valign="top" style="padding:2px 4px">Weight: <span style="font-weight:bold">@item.Weight_in_kg</span> <span style="display:block;">Date: <span style="font-weight: Bold">@(item.CandidateDetailsEnteredDate != null ? ((DateTime)item.CandidateDetailsEnteredDate).ToString("yyyy/MM/dd") : "")</span></span></td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid transparent;padding:2px 4px;width: 135px;" class="">Hb</td>
+										<td style="border-bottom:1px solid transparent;padding:2px 4px;font-weight:bold;width: 135px;">@item.UHb g%</td>
+										<td style="padding:2px 4px" colspan="4">DC N @item.BDC_N% L @item.BDC_L% E @item.BDC_E% M @item.BDC_M% B @item.BDC_B% </td>
+									</tr>
+									<tr>
+										<td style="border-bottom:1px solid transparent;padding:2px 4px;">TC</td>
+										<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@item.UTC_in_cumm /cumm</td>
+										<td colspan="4">Platelets : <span style="font-weight:bold">@item.Platelets [150000 - 450000] cu.mm</span> </td>
+									</tr>
+									<tr>
+										<td style="border-bottom:1px solid transparent;padding:2px 4px;">HIV 1/2</td>
+										<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@item.UHIV_1_2</td>
+										<td style="padding:2px 4px;width: 94px;">Sugar</td>
+										<td style="padding:2px 4px; font-weight: bold">@item.BSugar mg%</td>
+										<td style="padding:2px 4px;width: 98px;">Creat</td>
+										<td style="padding:2px 4px; font-weight: bold">@item.Creatinine mg%</td>
+									</tr>
+									<tr>
+										<td style="border-bottom:1px solid transparent;padding:2px 4px;">HBsAg</td>
+										<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@item.UHBsAg</td>
+										<td style="border-bottom:1px solid transparent;padding:2px 4px;">Bill T /</td>
+										<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@item.Bill_T_Per mg%</td>
+										<td style="border-bottom:1px solid transparent;padding:2px 4px;">SGPT</td>
+										<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@item.SGPT_Per IU/L</td>
+									</tr>
+									<tr>
+										<td style="border-bottom:1px solid transparent;padding:2px 4px;">Anti-HCV</td>
+										<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@item.UAnti_HCV</td>
+										<td style="border-bottom:1px solid transparent;padding:2px 4px;">Albumin</td>
+										<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@item.BAlbumin mg%</td>
+										<td style="border-bottom:1px solid transparent;padding:2px 4px;">Urea</td>
+										<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@item.Urea_Per mg%</td>
+									</tr>
+									<tr>
+										<td style="border-bottom:1px solid transparent;padding:2px 4px;">TPHA</td>
+										<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@item.UTPHA</td>
+										<td style="border-bottom:1px solid transparent;padding:2px 4px;">Bill D /</td>
+										<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@item.Bil_D_Per mg%</td>
+										<td style="border-bottom:1px solid transparent;padding:2px 4px;">ESR 24</td>
+										<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@item.ESR_Per mg%</td>
+									</tr>
+
+									<tr>
+										<td style="border-bottom:1px solid transparent;padding:2px 4px;">VDRL</td>
+										<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@item.UVDRL</td>
+										<td style="border-bottom:1px solid transparent;padding:2px 4px;">T.Pro</td>
+										<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@item.TPro_Per</td>
+										<td style="border-bottom:1px solid transparent;padding:2px 4px;">GGT</td>
+										<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@item.GGT_Per</td>
+									</tr>
+									<tr>
+										<td style="border-bottom:1px solid transparent;padding:2px 4px;">M.P.</td>
+										<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@item.UMP</td>
+										<td style="padding:2px 4px">Alk.Pho</td>
+										<td style="padding:2px 4px; font-weight: bold">@item.Alk_Pho_Per</td>
+										<td style="padding:2px 4px">SGOT</td>
+										<td style="padding:2px 4px; font-weight: bold">@item.SGOT_Per IU/L</td>
+									</tr>
+									<tr>
+										<td style="padding:2px 4px; border-bottom: 1px solid transparent">M.F.</td>
+										<td style="padding:2px 4px; border-bottom: 1px solid transparent; font-weight: bold; ">@item.UMF</td>
+										<td style="padding:2px 4px" colspan="4" rowspan="2">
+											Blood Grouping &amp; RH. <span style="font-weight:bold">@item.BloodGroupName</span> <br>
+
+											@if (item.Gender == "F")
+											{
+											<text>Pregnancy: &nbsp;</text><span style="font-weight:bold">@item.Pregnancy</span>
+											}
+										</td>
+
+									</tr>
+									<tr>
+										<td style="padding:2px 4px; border-bottom: 1px solid transparent">Urine Re/Me</td>
+										<td style="padding:2px 4px; border-bottom: 1px solid transparent"></td>
+
+									</tr>
+									<tr>
+										<td style="padding:2px 4px; border-bottom: 1px solid transparent">Sugar</td>
+										<td style="padding:2px 4px; border-bottom: 1px solid transparent; font-weight: bold">@item.Usugar</td>
+										<td style="padding:2px 4px; border-bottom: 1px solid transparent" colspan="4" rowspan="3">
+											Other
+										</td>
+									</tr>
+									<tr>
+										<td style="padding:2px 4px; border-bottom: 1px solid transparent">Albumin</td>
+										<td style="padding:2px 4px; border-bottom: 1px solid transparent; font-weight: bold">@item.Ualbumin</td>
+									</tr>
+									<tr>
+										<td style="padding:2px 4px">Stool RE</td>
+										<td style="padding:2px 4px; font-weight: bold">@item.Stool_RE</td>
+									</tr>
+
+
+									<tr>
+										<td colspan="6" style="padding:2px 4px">Lab No:<span style="font-weight:bold"> @item.LabCode</span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				}
+
+			</div>
+		</div>
+	</div>
+

@@ -1,0 +1,259 @@
+﻿@model KDC.DL.ViewModel.VaccinationReportVM
+
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<script>
+    function printPageArea(areaID) {
+        document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="../assets/css/print.css"/>');
+        var printContent = document.getElementById(areaID);
+        var WinPrint = window.open('', '', 'width=900,height=650');
+        WinPrint.document.write(printContent.innerHTML);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+        WinPrint.close();
+    }
+</script>
+<div class="col-sm-12">
+	<h3>Medical Report <div class="pull-right"><a class="btn btn-success form-control" href="javascript:void(0);" onclick="printPageArea('printableArea')">Print</a></div></h3>
+	<div class="box box-primary">
+		<div class="box-body">
+			<div class="row">
+
+				@using (Html.BeginForm())
+				{
+				@Html.AntiForgeryToken()
+					{
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label>Lab No.</label>
+							<input type="text" class="form-control" name="LabNo" id="LabNo" />
+						</div>
+					</div>
+
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label>Year</label>
+							@Html.DropDownList("Year", null, new { @class = "form-control" })
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="form-group">
+							<label><span style="color:#fff">print</span></label>
+							<input type="submit" class="form-control btn btn-primary" name="search" id="search" value="Search" />
+						</div>
+					</div>
+					}
+				}
+
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label><span style="color:#fff">print</span></label>
+
+					</div>
+				</div>
+			</div>
+
+			<div id="printableArea">
+				<div style="font-size: 9px; font-family: sans-serif; width: 210mm; height: 297mm; background: url('../../images/medical.jpg'); background-size: cover;">
+
+					<div style="margin-top: 115px; position: absolute;">
+						<table style="margin-left: 29px; width: 195mm;">
+							<tbody>
+								<tr>
+									<td style="border:1px solid transparent;text-align:center;font-size:11px">FULLY AUTOMATED COMPUTERISED LABORATORY</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table style="margin-left: 29px; width: 195mm;font-size: 12px;margin-top:-6px">
+							<tbody>
+								<tr>
+									<td colspan="2" style="border-left: 1px solid transparent;border-top: 1px solid transparent;font-weight: Bold;width: 300;">Visa No. : <span style="">@Model.VisaNo</span></td>
+									<td colspan="2" style="border-left: 1px solid transparent;border-top: 1px solid transparent;font-weight: Bold;width: 230px;">Visa Date : <span style="font-weight: Bold">@Model.VisaDate</span></td>
+									<td colspan="2" style="border-right: 1px solid transparent; border-left: 1px solid transparent; border-top: 1px solid transparent; padding:2px 4px; font-weight: Bold;">RQ No. : <span style="font-weight: Bold">@Model.RQNoManpower</span></td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table valign="top" style="padding:100px;border-collapse: collapse;border: 2px solid #808080;width: 195mm;font-family: -webkit-body;font-size: 13px;margin-left: 29px;" border="1px" id="printTable">
+							<tbody>
+								<tr>
+									<td colspan="2" style="padding:2px 4px; border-right: 1px solid transparent">
+										Ref .Code : <span style="font-weight: Bold">@Model.GccCode</span><br>
+										<span style="display: block; border-right: 1px solid transparent">Name : <span style="text-transform:uppercase;font-weight:Bold">@Model.CandidateName</span></span>
+										<span style="display: block; border-right: 1px solid transparent"> Country: <span style="text-transform: uppercase; font-weight: Bold">@Model.CountryName</span></span>
+									</td>
+									<td colspan="2" style="padding:2px 4px">ID : @Model.LabCode <br> <span style="display:block;">P.P.NO. :<span style="font-weight: Bold"> @Model.PassportNo</span></span></td>
+									<td valign="top" style="padding:2px 4px">Height : <span style="font-weight:bold">@Model.Height_in_cm</span> <br> </td>
+									<td valign="top" style="padding:2px 4px">Weight: <span style="font-weight:bold">@Model.Weight_in_kg</span> <span style="display:block;">Date: <span style="font-weight: Bold">@(Model.CandidateDetailsEnteredDate != null ? ((DateTime)Model.CandidateDetailsEnteredDate).ToString("yyyy/MM/dd") : "")</span></span></td>
+								</tr>
+								<tr>
+									<td style="border-bottom: 1px solid transparent;padding:2px 4px;width: 135px;" class="">Hb</td>
+									<td style="border-bottom:1px solid transparent;padding:2px 4px;font-weight:bold;width: 135px;">@Model.UHb g%</td>
+									<td style="padding:2px 4px" colspan="4">DC N @Model.BDC_N% L @Model.BDC_L% E @Model.BDC_E% M @Model.BDC_M% B @Model.BDC_B% </td>
+								</tr>
+								<tr>
+									<td style="border-bottom:1px solid transparent;padding:2px 4px;">TC</td>
+									<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@Model.UTC_in_cumm /cumm</td>
+									<td colspan="4">Platelets : <span style="font-weight:bold">@Model.Platelets [150000 - 450000] cu.mm</span> </td>
+								</tr>
+								<tr>
+									<td style="border-bottom:1px solid transparent;padding:2px 4px;">HIV 1/2</td>
+									<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@Model.UHIV_1_2</td>
+									<td style="padding:2px 4px;width: 94px;">Sugar</td>
+									<td style="padding:2px 4px; font-weight: bold">@Model.BSugar mg%</td>
+									<td style="padding:2px 4px;width: 98px;">Creat</td>
+									<td style="padding:2px 4px; font-weight: bold">@Model.Creatinine mg%</td>
+								</tr>
+								<tr>
+									<td style="border-bottom:1px solid transparent;padding:2px 4px;">HBsAg</td>
+									<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@Model.UHBsAg</td>
+									<td style="border-bottom:1px solid transparent;padding:2px 4px;">Bill T /</td>
+									<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@Model.Bill_T_Per mg%</td>
+									<td style="border-bottom:1px solid transparent;padding:2px 4px;">SGPT</td>
+									<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@Model.SGPT_Per IU/L</td>
+								</tr>
+								<tr>
+									<td style="border-bottom:1px solid transparent;padding:2px 4px;">Anti-HCV</td>
+									<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@Model.UAnti_HCV</td>
+									<td style="border-bottom:1px solid transparent;padding:2px 4px;">Albumin</td>
+									<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@Model.BAlbumin mg%</td>
+									<td style="border-bottom:1px solid transparent;padding:2px 4px;">Urea</td>
+									<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@Model.Urea_Per mg%</td>
+								</tr>
+								<tr>
+									<td style="border-bottom:1px solid transparent;padding:2px 4px;">TPHA</td>
+									<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@Model.UTPHA</td>
+									<td style="border-bottom:1px solid transparent;padding:2px 4px;">Bill D /</td>
+									<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@Model.Bil_D_Per mg%</td>
+									<td style="border-bottom:1px solid transparent;padding:2px 4px;">ESR</td>
+									<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@Model.ESR_Per mg%</td>
+								</tr>
+
+								<tr>
+									<td style="border-bottom:1px solid transparent;padding:2px 4px;">VDRL</td>
+									<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@Model.UVDRL</td>
+									<td style="border-bottom:1px solid transparent;padding:2px 4px;">T.Pro</td>
+									<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@Model.TPro_Per</td>
+									<td style="border-bottom:1px solid transparent;padding:2px 4px;">GGT</td>
+									<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@Model.GGT_Per</td>
+								</tr>
+								<tr>
+									<td style="border-bottom:1px solid transparent;padding:2px 4px;">M.P.</td>
+									<td style="border-bottom: 1px solid transparent; padding:2px 4px; font-weight: bold">@Model.UMP</td>
+									<td style="padding:2px 4px">Alk.Pho</td>
+									<td style="padding:2px 4px; font-weight: bold">@Model.Alk_Pho_Per</td>
+									<td style="padding:2px 4px">SGOT</td>
+									<td style="padding:2px 4px; font-weight: bold">@Model.SGOT_Per IU/L</td>
+								</tr>
+								<tr>
+									<td style="padding:2px 4px; border-bottom: 1px solid transparent">M.F.</td>
+									<td style="padding:2px 4px; border-bottom: 1px solid transparent; font-weight: bold; ">@Model.UMF</td>
+									<td style="padding:2px 4px" colspan="4" rowspan="2">
+										Blood Grouping &amp; RH. <span style="font-weight:bold">@Model.BloodGroupName</span> <br>
+
+										@if (Model.Gender == "F")
+										{
+										<text>Pregnancy: &nbsp;</text><span style="font-weight:bold">@Model.Pregnancy</span>
+										}
+									</td>
+
+								</tr>
+								<tr>
+									<td style="padding:2px 4px; border-bottom: 1px solid transparent">Urine Re/Me</td>
+									<td style="padding:2px 4px; border-bottom: 1px solid transparent"></td>
+
+								</tr>
+								<tr>
+									<td style="padding:2px 4px; border-bottom: 1px solid transparent">Sugar</td>
+									<td style="padding:2px 4px; border-bottom: 1px solid transparent; font-weight: bold">@Model.Usugar</td>
+									<td style="padding:2px 4px; border-bottom: 1px solid transparent" colspan="4" rowspan="3">
+										Other
+									</td>
+								</tr>
+								<tr>
+									<td style="padding:2px 4px; border-bottom: 1px solid transparent">Albumin</td>
+									<td style="padding:2px 4px; border-bottom: 1px solid transparent; font-weight: bold">@Model.Ualbumin</td>
+								</tr>
+								<tr>
+									<td style="padding:2px 4px">Stool RE</td>
+									<td style="padding:2px 4px; font-weight: bold">@Model.Stool_RE</td>
+								</tr>
+
+
+								<tr>
+									<td colspan="6" style="padding:2px 4px">Lab No:<span style="font-weight:bold"> @Model.LabCode</span></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+
+
+
+
+			@using (Html.BeginForm("SearchLabReport", "Report"))
+			{
+			@Html.AntiForgeryToken()
+				{
+
+				<div class="row mt-10">
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label>From Lab No.</label>
+							<input type="text" class="form-control" name="From" id="From" />
+						</div>
+					</div>
+
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label>To Lab No.</label>
+							<input type="text" class="form-control" name="To" id="To" />
+						</div>
+					</div>
+
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label><span style="color:#fff">print</span></label>
+							<input type="submit" class="form-control btn btn-primary" name="" value="Find" id="SearchLabReport" />
+						</div>
+					</div>
+				</div>
+				}
+			}
+		</div>
+	</div>
+</div>
+
+<div class="clearfix"></div>
+
+
+
+<script>
+
+	@*$('#search').on('click', function () {
+	    //alert('search');
+	    var LabId = $('#LabNo').val();
+	    $.ajax({
+	        type: "POST",
+	        data: { LabId: LabId },
+	        url: '@Url.Action("Laborator", "ReportingLine")',
+	        success: function (data) {
+	            $("#divLoader").hide();
+	            $('#EmployeeId').empty();
+	            $('#EmployeeId').append(data);
+	            GetDatatable("xyz");
+	        }
+	    });
+	});*@
+</script>

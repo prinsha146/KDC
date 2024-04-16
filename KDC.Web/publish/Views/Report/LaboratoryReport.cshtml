@@ -1,0 +1,579 @@
+﻿@model KDC.DL.ViewModel.VaccinationReportVM
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    #printableArea {
+        display: none;
+    }
+</style>
+
+
+<script>
+    function printPageArea(areaID) {
+        document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="../assets/css/print.css"/>');
+        var printContent = document.getElementById(areaID);
+        var WinPrint = window.open('', '', 'width=900,height=650');
+        WinPrint.document.write(printContent.innerHTML);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+        WinPrint.close();
+    }
+</script>
+<div class="col-sm-12">
+    <h3>Medical Report <div class="pull-right"><a class="btn btn-success form-control" href="javascript:void(0);" onclick="printPageArea('printableArea')">Print all Report</a></div></h3>
+    <div class="box box-primary">
+        <div class="box-body">
+            <div class="row">
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    {
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Lab No.</label>
+                                <input type="text" class="form-control" name="LabNo" id="LabNo" />
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label><span style="color:#fff">print</span></label>
+                                <input type="submit" class="form-control btn btn-primary" name="search" id="search" value="Search" />
+                            </div>
+                        </div>
+                    }
+                }
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label><span style="color:#fff">print</span></label>
+
+                    </div>
+                </div>
+            </div>
+
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Lab Report</a></li>
+                <li><a data-toggle="tab" href="#menu1">Vaccination</a></li>
+                <li><a data-toggle="tab" href="#menu2">Xray</a></li>
+
+            </ul>
+
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
+
+                    <div style="font-size: 13px; font-family: sans-serif; width: 210mm; height: 297mm; background: url('../../images/medical.jpg'); background-size: cover;">
+
+                        <div style="margin-top: 124px; position: absolute;">
+                            <table style="margin-left: 29px; width: 195mm;">
+                                <tbody>
+                                    <tr>
+                                        <td style="border:1px solid transparent;text-align:center;padding:4px">FULLY AUTOMATED COMPUTERISED LABORATORY</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table style="margin-left: 29px; width: 195mm;">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2" style="border-left: 1px solid transparent;border-top: 1px solid transparent;padding: 4px;font-weight: Bold;width: 325px;">Visa No. : <span style="">@Model.VisaNo</span></td>
+                                        <td colspan="2" style="border-left: 1px solid transparent;border-top: 1px solid transparent;padding: 4px;font-weight: Bold;width: 273px;">Visa Date : <span style="font-weight: Bold">@Model.VisaDate</span></td>
+                                        <td colspan="2" style="border-right: 1px solid transparent; border-left: 1px solid transparent; border-top: 1px solid transparent; padding: 4px; font-weight: Bold;">RQ No. : <span style="font-weight: Bold">@Model.RQNoManpower</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table valign="top" style="padding:100px;border-collapse: collapse;border: 2px solid #808080;width: 195mm;font-family: -webkit-body;font-size: 14px;margin-left: 29px;" border="1px" id="printTable">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2" style="padding: 4px; border-right: 1px solid transparent">
+                                            Ref .Code : <span style="font-weight: Bold">@Model.GccCode</span><br>
+                                            <span style="display: block; border-right: 1px solid transparent">Name : <span style="text-transform:uppercase;font-weight:Bold">@Model.CandidateName</span></span>
+                                            <span style="display: block; border-right: 1px solid transparent"> Country: <span style="text-transform: uppercase; font-weight: Bold">@Model.VisaStampingCountryID</span></span>
+                                        </td>
+                                        <td colspan="2" style="padding:4px">ID : @Model.LabCode <br> <span style="display:block;">P.P.NO. :<span style="font-weight: Bold"> @Model.PassportNo</span></span></td>
+                                        <td valign="top" style="padding:4px">Height : <span style="font-weight:bold">@Model.Height_in_cm</span> <br> </td>
+                                        <td valign="top" style="padding:4px">Weight: <span style="font-weight:bold">@Model.Weight_in_kg</span> <span style="display:block;">Date: <span style="font-weight: Bold">@(((DateTime)Model.CandidateDetailsEnteredDate).ToString("yyyy/MM/dd"))</span></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-bottom: 1px solid transparent;padding: 4px;width: 135px;" class="">Hb</td>
+                                        <td style="border-bottom:1px solid transparent;padding:4px;font-weight:bold;width: 135px;">@Model.Hb g%</td>
+                                        <td style="padding:4px" colspan="4">DC N @Model.DC_N% L @Model.DC_L% E @Model.DC_E% M @Model.DC_M% B @Model.DC_B% </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-bottom:1px solid transparent;padding:4px;">TC</td>
+                                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.TC_in_cumm /cumm</td>
+                                        <td colspan="4">Platelets : <span style="font-weight:bold">@Model.Platelets [150000 - 450000] cu.mm</span> </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-bottom:1px solid transparent;padding:4px;">HIV 1/2</td>
+                                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.HIV_1_2</td>
+                                        <td style="padding:4px;width: 94px;">Sugar</td>
+                                        <td style="padding: 4px; font-weight: bold">@Model.Sugar mg%</td>
+                                        <td style="padding:4px;width: 98px;">Creat</td>
+                                        <td style="padding: 4px; font-weight: bold">@Model.Creatinine mg%</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-bottom:1px solid transparent;padding:4px;">HBsAg</td>
+                                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.HBsAg</td>
+                                        <td style="border-bottom:1px solid transparent;padding:4px;">Bill T /</td>
+                                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.Bill_T_Per mg%</td>
+                                        <td style="border-bottom:1px solid transparent;padding:4px;">SGPT</td>
+                                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.SGPT_Per IU/L</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-bottom:1px solid transparent;padding:4px;">Anti-HCV</td>
+                                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.Anti_HCV</td>
+                                        <td style="border-bottom:1px solid transparent;padding:4px;">Albumin</td>
+                                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.Albumin_Per MG%</td>
+                                        <td style="border-bottom:1px solid transparent;padding:4px;">Urea</td>
+                                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.Urea_Per mg%</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-bottom:1px solid transparent;padding:4px;">TPHA</td>
+                                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.TPHA</td>
+                                        <td style="border-bottom:1px solid transparent;padding:4px;">Bill D /</td>
+                                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.Bil_D_Per mg%</td>
+                                        <td style="border-bottom:1px solid transparent;padding:4px;">ESR 24</td>
+                                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.ESR_Per mg%</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="border-bottom:1px solid transparent;padding:4px;">VDRL</td>
+                                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.VDRL</td>
+                                        <td style="border-bottom:1px solid transparent;padding:4px;">T.Pro</td>
+                                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.TPro_Per</td>
+                                        <td style="border-bottom:1px solid transparent;padding:4px;">GGT</td>
+                                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.GGT_Per</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-bottom:1px solid transparent;padding:4px;">M.P.</td>
+                                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.MP</td>
+                                        <td style="padding:4px">Alk.Pho</td>
+                                        <td style="padding: 4px; font-weight: bold">@Model.Alk_Pho_Per</td>
+                                        <td style="padding:4px">SGOT</td>
+                                        <td style="padding: 4px; font-weight: bold">@Model.SGOT_Per IU/L</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px; border-bottom: 1px solid transparent">M.F.</td>
+                                        <td style="padding: 4px; border-bottom: 1px solid transparent; font-weight: bold; ">@Model.MF</td>
+                                        <td style="padding:4px" colspan="4" rowspan="2">
+                                            Blood Grouping &amp; RH. <span style="font-weight:bold">@Model.BloodGroup_RH</span> <br>
+                                            Pregnancy: <span style="font-weight:bold">@Model.Pregnancy</span>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px; border-bottom: 1px solid transparent">Urine Re/Me</td>
+                                        <td style="padding: 4px; border-bottom: 1px solid transparent"></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px; border-bottom: 1px solid transparent">Sugar</td>
+                                        <td style="padding: 4px; border-bottom: 1px solid transparent; font-weight: bold">@Model.Sugar</td>
+                                        <td style="padding: 4px; border-bottom: 1px solid transparent" colspan="4" rowspan="3">
+                                            Other
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px; border-bottom: 1px solid transparent">Albumin</td>
+                                        <td style="padding: 4px; border-bottom: 1px solid transparent; font-weight: bold">@Model.Albumin</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:4px">Stool RE</td>
+                                        <td style="padding: 4px; font-weight: bold">@Model.Stool_RE</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td colspan="6" style="padding:4px">Lab No:<span style="font-weight:bold"> @Model.LabCode</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="menu1" class="tab-pane fade">
+
+                    <div style="font-size: 13px; font-family: sans-serif; width: 210mm; height: 297mm; background: url('../../images/medical.jpg'); background-size: cover;">
+
+                        <div style="margin-top: 224px; position: absolute; width: 210mm;">
+
+                            <div style="float:right">
+                                <!-- Date:  @DateTime.Now.ToString("yyyy/MM/dd")-->
+                                <strong>G.C.C.CODE NO. : 06/01/03</strong>
+                            </div>
+                            <center>
+                                <h2 style="margin-top:80px"><u>VACCINATION CERTIFICATE</u></h2>
+                                <h4>Measles, Mumps, and Rubella (MMR)</h4>
+                            </center>
+
+                            <div style="float: left; width: 160px;">
+                                <img src="../../images/camera/@Model.PhotoCamera" alt="" />
+
+                            </div>
+                            <div style="float: left; width: 625px; ">
+                                <p style="font-size:18px;margin-top:30px;margin-bottom:25px;">
+                                    This is to certify that <span class="text-primary">@Model.CandidateName</span>, Sex: <u>
+                                        @if (Model.Gender == "M")
+                                        {<span>Male</span>}
+                                        else
+                                        {<span>Female</span>}
+                                    </u> having Passport Number: <u>@Model.PassportNo</u>,
+                                    Nationality: <u>@Model.Nationality</u> has been vaccinated MMR Vaccine.
+                                </p>
+
+
+                                <table valign="top" style="padding:100px;border-collapse: collapse;border: 2px solid #808080;width: 169mm;font-family: -webkit-body;font-size: 16px;padding: 10px;" border="1px" id="printTable">
+                                    <thead>
+                                        <tr>
+                                            <th style="padding:5px">Date of Vaccination</th>
+                                            <th style="padding:5px">Manufacturer</th>
+                                            <th style="padding:5px">Batch No.</th>
+                                            <th style="padding:5px">Date of Manufacture</th>
+                                            <th style="padding:5px">Date of Expiry</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding:5px">@(((DateTime)Model.DateOfVaccination).ToString("yyyy/MM/dd"))</td>
+                                            <td style="padding:5px">@Model.Manufacturer</td>
+                                            <td style="padding:5px">@Model.BatchNo</td>
+                                            <td style="padding:5px">@(((DateTime)Model.DateOfManufacture).ToString("yyyy/MM/dd"))</td>
+                                            <td style="padding:5px">@(((DateTime)Model.DateOfExpiry).ToString("yyyy/MM/dd"))</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div id="menu2" class="tab-pane fade">
+
+                    <div style="font-weight: Bold; font-size: 15px; font-family: sans-serif; width: 210mm; height: 297mm; background: url('../../images/xray.jpg'); background-size: cover;">
+                        <div style="text-transform:Uppercase;margin-top: 152px;position: absolute;left: 653px;">00001</div>
+                        <div style="text-transform: Uppercase;margin-top: 183px;position: absolute;left: 656px;">RV-1</div>
+                        <div style="text-transform: Uppercase;margin-top: 227px;position: absolute;left: 338px;">@Model.CandidateName</div>
+                        <div style="text-transform: Uppercase;margin-top: 254px;position: absolute;left: 554px;">@(((DateTime)Model.DOB_AD).ToString("yyyy/MM/dd"))</div>
+                        <div style="text-transform: Uppercase;margin-top: 254px;position: absolute;left: 675px;">Male</div>
+
+                        <div style="text-transform: Uppercase;margin-top: 284px;position: absolute;left: 95px;">1990/01/01</div>
+                        <div style="text-transform: Uppercase;margin-top: 311px;position: absolute;left: 229px;">@Model.PassportNo</div>
+
+                        <div class="text-uppercase" style="margin-top: 338px;position: absolute;left: 625px;">
+                            <img width="100px" src="http://kdc.com.dandelion.arvixe.com/images/tick.png" style="width: 15px;">
+                        </div>
+
+                        <div class="text-uppercase" style="margin-top: 364px;position: absolute;left: 626px;">
+                            <img width="100px" src="http://kdc.com.dandelion.arvixe.com/images/tick.png" style="width: 15px;">
+                        </div>
+
+                        <div class="text-uppercase" style="margin-top: 479px;position: absolute;TEXT-ALIGN: CENTER;LEFT: 400PX;">
+                            QATAR
+                        </div>
+                        <div>
+                            <svg id="barcode" style="margin-top: 450px; position: absolute; left: -4px;height:90px"></svg>
+                            <script>
+                                JsBarcode("#barcode", "201918577034");
+                            </script>
+                        </div>
+                        <div class="text-uppercase" style="margin-top: 632px;position: absolute;left: 606px;">
+                            <img src="http://kdc.com.dandelion.arvixe.com/images/lungs.JPG" style="width: 195px;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+            <div class="row mt-10">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>From Lab No.</label>
+                        <input type="text" class="form-control" name="FromDate" />
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>To Lab No.</label>
+                        <input type="text" class="form-control" name="ToDate" />
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label><span style="color:#fff">print</span></label>
+                        <input type="submit" class="form-control btn btn-primary" name="" value="Print" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+<div id="printableArea">
+    <div style="font-size: 13px; font-family: sans-serif; width: 210mm; height: 297mm; background: url('../../images/medical.jpg'); background-size: cover;">
+
+        <div style="margin-top: 124px; position: absolute;">
+            <table style="margin-left: 29px; width: 195mm;">
+                <tbody>
+                    <tr>
+                        <td style="border:1px solid transparent;text-align:center;padding:4px">FULLY AUTOMATED COMPUTERISED LABORATORY</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table style="margin-left: 29px; width: 195mm;">
+                <tbody>
+                    <tr>
+                        <td colspan="2" style="border-left: 1px solid transparent;border-top: 1px solid transparent;padding: 4px;font-weight: Bold;width: 325px;">Visa No. : <span style="">@Model.VisaNo</span></td>
+                        <td colspan="2" style="border-left: 1px solid transparent;border-top: 1px solid transparent;padding: 4px;font-weight: Bold;width: 273px;">Visa Date : <span style="font-weight: Bold">@Model.VisaDate</span></td>
+                        <td colspan="2" style="border-right: 1px solid transparent; border-left: 1px solid transparent; border-top: 1px solid transparent; padding: 4px; font-weight: Bold;">RQ No. : <span style="font-weight: Bold">@Model.RQNoManpower</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table valign="top" style="padding:100px;border-collapse: collapse;border: 2px solid #808080;width: 195mm;font-family: -webkit-body;font-size: 14px;margin-left: 29px;" border="1px" id="printTable">
+                <tbody>
+                    <tr>
+                        <td colspan="2" style="padding: 4px; border-right: 1px solid transparent">
+                            Ref .Code : <span style="font-weight: Bold">@Model.GccCode</span><br>
+                            <span style="display: block; border-right: 1px solid transparent">Name : <span style="text-transform:uppercase;font-weight:Bold">@Model.CandidateName</span></span>
+                            <span style="display: block; border-right: 1px solid transparent"> Country: <span style="text-transform: uppercase; font-weight: Bold">@Model.VisaStampingCountryID</span></span>
+                        </td>
+                        <td colspan="2" style="padding:4px">ID : @Model.LabCode <br> <span style="display:block;">P.P.NO. :<span style="font-weight: Bold"> @Model.PassportNo</span></span></td>
+                        <td valign="top" style="padding:4px">Height : <span style="font-weight:bold">@Model.Height_in_cm</span> <br> </td>
+                        <td valign="top" style="padding:4px">Weight: <span style="font-weight:bold">@Model.Weight_in_kg</span> <span style="display:block;">Date: <span style="font-weight: Bold">@(((DateTime)Model.CandidateDetailsEnteredDate).ToString("yyyy/MM/dd"))</span></span></td>
+                    </tr>
+                    <tr>
+                        <td style="border-bottom: 1px solid transparent;padding: 4px;width: 135px;" class="">Hb</td>
+                        <td style="border-bottom:1px solid transparent;padding:4px;font-weight:bold;width: 135px;">@Model.Hb g%</td>
+                        <td style="padding:4px" colspan="4">DC N @Model.DC_N% L @Model.DC_L% E @Model.DC_E% M @Model.DC_M% B @Model.DC_B% </td>
+                    </tr>
+                    <tr>
+                        <td style="border-bottom:1px solid transparent;padding:4px;">TC</td>
+                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.TC_in_cumm /cumm</td>
+                        <td colspan="4">Platelets : <span style="font-weight:bold">@Model.Platelets [150000 - 450000] cu.mm</span> </td>
+                    </tr>
+                    <tr>
+                        <td style="border-bottom:1px solid transparent;padding:4px;">HIV 1/2</td>
+                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.HIV_1_2</td>
+                        <td style="padding:4px;width: 94px;">Sugar</td>
+                        <td style="padding: 4px; font-weight: bold">@Model.Sugar mg%</td>
+                        <td style="padding:4px;width: 98px;">Creat</td>
+                        <td style="padding: 4px; font-weight: bold">@Model.Creatinine mg%</td>
+                    </tr>
+                    <tr>
+                        <td style="border-bottom:1px solid transparent;padding:4px;">HBsAg</td>
+                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.HBsAg</td>
+                        <td style="border-bottom:1px solid transparent;padding:4px;">Bill T /</td>
+                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.Bill_T_Per mg%</td>
+                        <td style="border-bottom:1px solid transparent;padding:4px;">SGPT</td>
+                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.SGPT_Per IU/L</td>
+                    </tr>
+                    <tr>
+                        <td style="border-bottom:1px solid transparent;padding:4px;">Anti-HCV</td>
+                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.Anti_HCV</td>
+                        <td style="border-bottom:1px solid transparent;padding:4px;">Albumin</td>
+                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.Albumin_Per MG%</td>
+                        <td style="border-bottom:1px solid transparent;padding:4px;">Urea</td>
+                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.Urea_Per mg%</td>
+                    </tr>
+                    <tr>
+                        <td style="border-bottom:1px solid transparent;padding:4px;">TPHA</td>
+                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.TPHA</td>
+                        <td style="border-bottom:1px solid transparent;padding:4px;">Bill D /</td>
+                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.Bil_D_Per mg%</td>
+                        <td style="border-bottom:1px solid transparent;padding:4px;">ESR 24</td>
+                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.ESR_Per mg%</td>
+                    </tr>
+
+                    <tr>
+                        <td style="border-bottom:1px solid transparent;padding:4px;">VDRL</td>
+                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.VDRL</td>
+                        <td style="border-bottom:1px solid transparent;padding:4px;">T.Pro</td>
+                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.TPro_Per</td>
+                        <td style="border-bottom:1px solid transparent;padding:4px;">GGT</td>
+                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.GGT_Per</td>
+                    </tr>
+                    <tr>
+                        <td style="border-bottom:1px solid transparent;padding:4px;">M.P.</td>
+                        <td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">@Model.MP</td>
+                        <td style="padding:4px">Alk.Pho</td>
+                        <td style="padding: 4px; font-weight: bold">@Model.Alk_Pho_Per</td>
+                        <td style="padding:4px">SGOT</td>
+                        <td style="padding: 4px; font-weight: bold">@Model.SGOT_Per IU/L</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px; border-bottom: 1px solid transparent">M.F.</td>
+                        <td style="padding: 4px; border-bottom: 1px solid transparent; font-weight: bold; ">@Model.MF</td>
+                        <td style="padding:4px" colspan="4" rowspan="2">
+                            Blood Grouping &amp; RH. <span style="font-weight:bold">@Model.BloodGroup_RH</span> <br>
+                            Pregnancy: <span style="font-weight:bold">@Model.Pregnancy</span>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px; border-bottom: 1px solid transparent">Urine Re/Me</td>
+                        <td style="padding: 4px; border-bottom: 1px solid transparent"></td>
+
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px; border-bottom: 1px solid transparent">Sugar</td>
+                        <td style="padding: 4px; border-bottom: 1px solid transparent; font-weight: bold">@Model.Sugar</td>
+                        <td style="padding: 4px; border-bottom: 1px solid transparent" colspan="4" rowspan="3">
+                            Other
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px; border-bottom: 1px solid transparent">Albumin</td>
+                        <td style="padding: 4px; border-bottom: 1px solid transparent; font-weight: bold">@Model.Albumin</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:4px">Stool RE</td>
+                        <td style="padding: 4px; font-weight: bold">@Model.Stool_RE</td>
+                    </tr>
+
+
+                    <tr>
+                        <td colspan="6" style="padding:4px">Lab No:<span style="font-weight:bold"> @Model.LabCode</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="font-size: 13px; font-family: sans-serif; width: 210mm; height: 297mm; background: url('../../images/medical.jpg'); background-size: cover;">
+
+        <div style="margin-top: 224px; position: absolute; width: 210mm;">
+
+            <div style="float:right">
+                <!-- Date:  @DateTime.Now.ToString("yyyy/MM/dd")-->
+                <strong>G.C.C.CODE NO. : 06/01/03</strong>
+            </div>
+            <center>
+                <h2 style="margin-top:80px"><u>VACCINATION CERTIFICATE</u></h2>
+                <h4>Measles, Mumps, and Rubella (MMR)</h4>
+            </center>
+
+            <div style="float: left; width: 160px;">
+                <img src="../../images/camera/@Model.PhotoCamera" alt="" />
+
+            </div>
+            <div style="float: left; width: 625px; ">
+                <p style="font-size:18px;margin-top:30px;margin-bottom:25px;">
+                    This is to certify that <span class="text-primary">@Model.CandidateName</span>, Sex: <u>
+                        @if (Model.Gender == "M")
+                        {<span>Male</span>}
+                        else
+                        {<span>Female</span>}
+                    </u> having Passport Number: <u>@Model.PassportNo</u>,
+                    Nationality: <u>@Model.Nationality</u> has been vaccinated MMR Vaccine.
+                </p>
+
+
+                <table valign="top" style="padding:100px;border-collapse: collapse;border: 2px solid #808080;width: 169mm;font-family: -webkit-body;font-size: 16px;padding: 10px;" border="1px" id="printTable">
+                    <thead>
+                        <tr>
+                            <th style="padding:5px">Date of Vaccination</th>
+                            <th style="padding:5px">Manufacturer</th>
+                            <th style="padding:5px">Batch No.</th>
+                            <th style="padding:5px">Date of Manufacture</th>
+                            <th style="padding:5px">Date of Expiry</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td style="padding:5px">@(((DateTime)Model.DateOfVaccination).ToString("yyyy/MM/dd"))</td>
+                            <td style="padding:5px">@Model.Manufacturer</td>
+                            <td style="padding:5px">@Model.BatchNo</td>
+                            <td style="padding:5px">@(((DateTime)Model.DateOfManufacture).ToString("yyyy/MM/dd"))</td>
+                            <td style="padding:5px">@(((DateTime)Model.DateOfExpiry).ToString("yyyy/MM/dd"))</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div style="font-weight: Bold; font-size: 15px; font-family: sans-serif; width: 210mm; height: 297mm; background: url('../../images/xray.jpg'); background-size: cover;">
+        <div style="text-transform:Uppercase;margin-top: 152px;position: absolute;left: 653px;">00001</div>
+        <div style="text-transform: Uppercase;margin-top: 183px;position: absolute;left: 656px;">RV-1</div>
+        <div style="text-transform: Uppercase;margin-top: 227px;position: absolute;left: 338px;">@Model.CandidateName</div>
+        <div style="text-transform: Uppercase;margin-top: 254px;position: absolute;left: 554px;">@(((DateTime)Model.DOB_AD).ToString("yyyy/MM/dd"))</div>
+        <div style="text-transform: Uppercase;margin-top: 254px;position: absolute;left: 675px;">Male</div>
+
+        <div style="text-transform: Uppercase;margin-top: 284px;position: absolute;left: 95px;">1990/01/01</div>
+        <div style="text-transform: Uppercase;margin-top: 311px;position: absolute;left: 229px;">@Model.PassportNo</div>
+
+        <div class="text-uppercase" style="margin-top: 338px;position: absolute;left: 625px;">
+            <img width="100px" src="http://kdc.com.dandelion.arvixe.com/images/tick.png" style="width: 15px;">
+        </div>
+
+        <div class="text-uppercase" style="margin-top: 364px;position: absolute;left: 626px;">
+            <img width="100px" src="http://kdc.com.dandelion.arvixe.com/images/tick.png" style="width: 15px;">
+        </div>
+
+        <div class="text-uppercase" style="margin-top: 479px;position: absolute;TEXT-ALIGN: CENTER;LEFT: 400PX;">
+            QATAR
+        </div>
+        <div>
+            <svg id="barcode" style="margin-top: 450px; position: absolute; left: -4px;height:90px"></svg>
+            <script>
+                JsBarcode("#barcode", "201918577034");
+            </script>
+        </div>
+        <div class="text-uppercase" style="margin-top: 632px;position: absolute;left: 606px;">
+            <img src="http://kdc.com.dandelion.arvixe.com/images/lungs.JPG" style="width: 195px;">
+        </div>
+
+    </div>
+
+
+
+
+</div>
+
+<script>
+
+	@*$('#search').on('click', function () {
+		//alert('search');
+		var LabId = $('#LabNo').val();
+		$.ajax({
+			type: "POST",
+			data: { LabId: LabId },
+			url: '@Url.Action("Laborator", "ReportingLine")',
+			success: function (data) {
+				$("#divLoader").hide();
+				$('#EmployeeId').empty();
+				$('#EmployeeId').append(data);
+				GetDatatable("xyz");
+			}
+		});
+	});*@
+</script>

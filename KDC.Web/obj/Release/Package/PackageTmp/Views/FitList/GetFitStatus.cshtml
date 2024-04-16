@@ -1,0 +1,104 @@
+﻿@model KDC.DL.ViewModel.CandidateVM
+@{
+    ViewBag.Title = "GetFitStatus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <h2>Candidate Details</h2>
+    <ol class="breadcrumb">
+        <li class="list"><a href="@Url.Action("Index", "Candidate")"><i class="fa fa-arrow-left"></i> Candidate List </a></li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <div class="col-sm-3">
+                        <center>
+                            @if (Model.PhotoScanned != null && Model.PhotoScanned != "")
+                            {
+                                <div class="col-sm-3">
+                                    <a href="~/images/@Model.CandidateID/CandidatePhoto/@Model.PhotoScanned" target="_blank"><img src="~/images/@Model.CandidateID/CandidatePhoto/@Model.PhotoScanned" height="100" width="100" /></a>
+                                </div>
+                            }
+                        </center>
+                    </div>
+                    
+                    <div class="col-sm-9">
+                        <div class="col-sm-5">
+                            <label>Name: </label>
+                            <span>@Model.CandidateName</span>
+                        </div>
+                        <div class="col-sm-5">
+                            <label>Nationality: </label>
+                            <span>@Model.Nationality</span>
+                        </div>
+                        <div class="col-sm-5">
+                            <label>Passport: </label>
+                            <span>@Model.PassportNo</span>
+                        </div>
+                        <div class="col-sm-5">
+                            <label>Place of Issue: </label>
+                            <span>@Model.PassportPlaceOfIssue</span>
+                        </div>
+                        <div class="col-sm-5">
+                            <label>Medical Test At:</label>
+                            <span>Nepal</span>
+                        </div>
+                        <div class="col-sm-5">
+                            <label>Medical Center: </label>
+                            <span>Kantipur Diagnostic Center</span>
+                        </div>
+                        <div class="col-sm-5">
+                            <label>Center Code</label>
+                            <span>@Model.GccCode</span>
+                        </div>
+                        <div class="col-sm-5">
+                            <label>Examination Date</label>
+                            <span>@(((DateTime)Model.LabTestEnteredDate).ToString("yyyy/MM/dd"))</span>
+                        </div>
+                        <div class="col-sm-5">
+                            <label>Height: </label>
+                            <span>@Model.Height_in_cm</span>
+                        </div>
+                        <div class="col-sm-5">
+                            <label>Weight: </label>
+                            <span>@Model.Weight_in_kg</span>
+                        </div>
+                        <div class="col-sm-5">
+                            <label>Age</label>
+                            <span>@Model.Age</span>
+                        </div>
+                        <div class="col-sm-5">
+                            <label>Remarks: </label>
+                            <span>@Model.Remarks</span>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div>
+                        <center>
+                            <h4>
+
+                                This Candidate is
+                                @if (Model.FitStatus == false)
+        {
+                        <span> UNFIT</span>
+}
+else
+{
+                        <span>FIT</span>
+}.
+
+                            </h4>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

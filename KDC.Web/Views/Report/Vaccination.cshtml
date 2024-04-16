@@ -1,0 +1,204 @@
+﻿@model KDC.DL.ViewModel.VaccinationReportVM
+@{
+    ViewBag.Title = "Vaccination";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header"></section>
+
+<section class="content">
+    <div class="box">
+        <div class="box-body">
+
+
+            @{
+                ViewBag.Title = "Index";
+                Layout = "~/Views/Shared/_Layout.cshtml";
+            }
+
+
+
+            <script>
+                function printPageArea(areaID) {
+                    document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="../assets/css/print.css"/>');
+                    var printContent = document.getElementById(areaID);
+                    var WinPrint = window.open('', '', 'width=900,height=650');
+                    WinPrint.document.write(printContent.innerHTML);
+                    WinPrint.document.close();
+                    WinPrint.focus();
+                    WinPrint.print();
+                    WinPrint.close();
+                }
+            </script>
+            <div class="col-sm-12">
+                <h3>Medical Report</h3>
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="row">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+                                {
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Lab No.</label>
+                                            <input type="text" class="form-control" name="LabNo" id="LabNo" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Year</label>
+                                            @Html.DropDownList("Year", null, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label><span style="color:#fff">print</span></label>
+                                            <input type="submit" class="form-control btn btn-primary" name="Search" value="Search" />
+                                        </div>
+                                    </div>
+
+                                }
+                            }
+
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label><span style="color:#fff">print</span></label>
+                                    <a class="btn btn-success form-control" href="javascript:void(0);" onclick="printPageArea('printableArea')">Print</a>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Doctor</label>
+                                    @*@Html.DropDownList("Doctor", null, "-- Select --", new { @class = "form-control", @id = "name" })*@
+                                    @Html.DropDownListFor(model => model.Doctor, null, "-- Select --", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div style="margin-bottom:150px">
+
+                            </div>
+                            <div id="printableArea">
+                                <div style="font-size: 13px; font-family: sans-serif; width: 210mm; height: 290mm; background: url('../../images/medical.jpg'); background-size: cover;">
+
+                                    <div style="margin-top: 224px; position: absolute; width: 201mm;">
+
+                                        <div style="float:right">
+                                            <!-- Date:  @DateTime.Now.ToString("yyyy/MM/dd")-->
+                                            <strong>G.C.C.CODE NO. : 06/01/03</strong>
+                                        </div>
+                                        <center>
+                                            <h2 style="margin-top:80px"><u>VACCINATION CERTIFICATE</u></h2>
+                                            <h4>Measles, Mumps, and Rubella (MMR)</h4>
+                                        </center>
+
+                                        <div style="float: left; width: 100px; margin-left: 30px; margin-top: 117px;">
+                                            <img src="../../images/scanned/@Model.PhotoScanned" alt="" />
+                                        </div>
+                                        <div style="float: left; width: 589px; ">
+                                            <p style="font-size:18px;margin-top:30px;margin-bottom:25px;">
+                                                This is to certify that <span class="text-primary">@Model.CandidateName</span>, Sex: <u>
+                                                    @if (Model.Gender == "M")
+                                                    {<span>Male</span>}
+                                                    else
+                                                    {<span>Female</span>}
+                                                </u> having Passport Number: <u>@Model.PassportNo</u>,
+                                                Nationality: <u>@Model.Nationality</u> has been vaccinated MMR Vaccine.
+                                            </p>
+
+
+                                            <table valign="top" style="padding:100px;border-collapse: collapse;border: 2px solid #808080;width: 169mm;font-family: -webkit-body;font-size: 16px;padding: 10px;" border="1px" id="printTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="padding:5px">Date of Vaccination</th>
+                                                        <th style="padding:5px">Manufacturer</th>
+                                                        <th style="padding:5px">Batch No.</th>
+                                                        <th style="padding:5px">Date of Manufacture</th>
+                                                        <th style="padding:5px">Date of Expiry</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="padding:5px">@(Model.DateOfVaccination != null && Model.DateOfVaccination.Year != 0001 ? ((DateTime)Model.DateOfVaccination).ToString("yyyy/MM/dd") : "")</td>
+                                                        <td style="padding:5px">@Model.Manufacturer</td>
+                                                        <td style="padding:5px">@Model.BatchNo</td>
+                                                        <td style="padding:5px">@(Model.DateOfManufacture != null ? ((DateTime)Model.DateOfManufacture).ToString("yyyy/MM/dd") : "")</td>
+                                                        <td style="padding:5px">@(Model.DateOfExpiry != null ? ((DateTime)Model.DateOfExpiry).ToString("yyyy/MM/dd") : "")</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div style="float: left; width: 400px; margin-top: 250px; text-align: left; margin-left:20px; font-size: 15px;">
+											___________________        <br>
+                                            <strong>Dr. <input type="text" id="name" style="border: none" /></strong><br />
+                                            MBBS, MD <br />
+                                            Consultant Physician<br />
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-10">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>From Lab No.</label>
+                                    <input type="text" class="form-control" name="" />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>To Lab No.</label>
+                                    <input type="text" class="form-control" name="" />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label><span style="color:#fff">Search</span></label>
+                                    <input type="submit" class="form-control btn btn-primary" name="" value="Search" />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label><span style="color:#fff">print</span></label>
+                                    <input type="submit" class="form-control btn btn-primary" name="" value="Print" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $('#Doctor').change(function () {
+        var doctor = $('#Doctor').val();
+        $.ajax({
+            data: { id: doctor },
+            //type: "POST",
+            url: '@Url.Action("DoctorInfo", "Report")',
+            success: function (response) {
+                var name = response;
+                console.log(name);
+                //alert(name);
+                //document.getElementById('name').textContent = name;
+                //$('#name').text(name);
+                $('#name').attr('value', name);
+            }
+        });
+
+    });
+</script>

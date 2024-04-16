@@ -1,0 +1,88 @@
+﻿@model KDC.DL.Models.CD_Candidate
+@{
+    ViewBag.Title = "ChangeStatus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{ 
+    var candidate = ViewBag.Detail;
+}
+<section class="content-header">
+    <h1>Candidate List</h1>
+    <ol class="breadcrumb">
+        <li class="list"><a href="@Url.Action("Index", "Candidate")"><i class="fa fa-arrow-left"></i> List </a></li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-body pt-10">
+            <div>
+                <div class="row">
+                    <div class="form-group col-sm-3">
+                        <label>Candidate:</label>
+                        <div class="">
+                            @Html.TextBoxFor(model => model.CandidateName, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label>Lab Code:</label>
+                        <div class="">
+                            @Html.TextBoxFor(model => model.LabCode, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+                @using (Html.BeginForm())
+    {
+            @Html.AntiForgeryToken()
+{
+            @Html.HiddenFor(model => model.CandidateID)
+            <div class="row">
+                <div class="form-group col-sm-3">
+                    <label class="control-label">Status</label>
+                    <div class="">
+					@if (Model.Status == "Fit" || Model.Status == "Pending")
+					{
+						<input type="radio" id="Fit" name="Status" value="Fit" checked /><span> Fit &nbsp; &nbsp; &nbsp;</span>
+						<input type="radio" id="Unfit" name="Status" value="Unfit" /><span>Unfit</span>
+					}
+					@if (Model.Status == "Unfit")
+					{
+						<input type="radio" id="Fit" name="Status" value="Fit" /><span> Fit &nbsp; &nbsp; &nbsp;</span>
+						<input type="radio" id="Unfit" name="Status" value="Unfit" checked/><span>Unfit</span>
+					}
+                        
+                    </div>
+                </div>
+                <br />
+                <div class="form-group col-sm-3" id="Remarks" style="display:none;">
+                    <label class="control-label">Unfit Remarks</label>
+                    <div class="">
+                        @Html.TextAreaFor(model => model.UnfitRemarks, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group col-sm-3">
+                    <div class="col-md-offset-2 ">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+}
+}
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $('#Fit').click(function () {
+        $("#Remarks").css("display", "none");
+    });
+    $('#Unfit').click(function () {
+        $("#Remarks").css("display", "block");
+    });
+
+</script>

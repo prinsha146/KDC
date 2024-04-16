@@ -1,0 +1,389 @@
+﻿@model IEnumerable<KDC.DL.ViewModel.CandidateVM>
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    function printPageArea(areaID) {
+        document.head.insertAdjacentHTML('beforeend', '');
+        var printContent = document.getElementById(areaID);
+        var WinPrint = window.open('', '', 'width=900,height=650');
+        WinPrint.document.write(printContent.innerHTML);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+        WinPrint.close();
+    }
+</script>
+
+<section class="content-header">
+	<h1>Lab Report List</h1>
+	<ol class="breadcrumb">
+		<li class="list"><a href="@Url.Action("Index", "Candidate")"><i class="fa fa-arrow-left"></i> Candidate List </a></li>
+		<li class="list"><a href="@Url.Action("UnFitCandidate", "FitList")"><i class="fa fa-circle"></i> Unfit Candidates </a></li>
+	</ol>
+</section>
+
+
+<section class="content">
+	<div class="box box-primary">
+		<div class="box-body pt-10">
+			<div>
+
+				@using (Html.BeginForm())
+				{
+				@Html.AntiForgeryToken()
+					{
+
+					<form style="background:#eee" class="col-sm-12 p-10 mb-10">
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label>Lab No.</label>
+								<input type="text" class="form-control" name="LabCode" id="LabCode" />
+							</div>
+						</div>
+
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label>Year</label>
+								@Html.DropDownList("Year", null, new { @class = "form-control", @required = "required" })
+							</div>
+						</div>
+
+						<div class="col-sm-2">
+							<div class="form-group">
+								<label><span style="color: #EEEEEE">print</span></label>
+								<input type="submit" class="form-control btn btn-primary" name="search" id="search" value="Search" />
+							</div>
+						</div>
+					</form>
+					}
+				}
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<!-- Custom Tabs -->
+					<div class="table-responsive">
+						<table id="example" class="table table-bordered table-striped table-condensed">
+							<thead>
+								<tr>
+									<th>
+										@Html.DisplayName("Lab Code")
+									</th>
+									<th>
+										@Html.DisplayName("Candidate Name")
+									</th>
+									<th>
+										@Html.DisplayName("GCC Slip No")
+									</th>
+									<th>
+										@Html.DisplayNameFor(model => model.Gender)
+									</th>
+									@*<th>
+											@Html.DisplayName("Country")
+										</th>*@
+									<th>
+										@Html.DisplayName("Date Of Issue")
+									</th>
+									@*<th>
+											@Html.DisplayName("Report Entry?")
+										</th>
+										<th>
+											Barcode
+										</th>*@
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model)
+								{
+								<tr>
+									<td>
+										@Html.DisplayFor(modelItem => item.LabCode)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.CandidateName)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.GccHMC)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.Gender)
+									</td>
+									@*<td>
+											@Html.DisplayFor(modelItem => item.Country)
+										</td>*@
+									<td>
+										@*@Html.DisplayFor(modelItem => item.DateOfIssueByKDC_AD)*@
+										@(item.DateOfIssueByKDC_AD != null ? ((DateTime)item.DateOfIssueByKDC_AD).ToString("yyyy-MM-dd") : "")
+									</td>
+									@*<td>
+											@if (item.LabTestEnteredBy <= 0 || item.LabTestEnteredBy == null)
+											{
+												<span class="btn btn-success btn-xs">No</span>
+											}
+											else
+											{
+												<span class="btn btn-success btn-xs">No</span>
+											}
+										</td> *@
+
+									<td class="hidden">
+
+
+										<div id="A_@item.Barcode">
+
+											<table>
+												<tr>
+													<td colspan="2">
+														<span style="font-size: 9px;">
+															@Html.DisplayFor(modelItem => item.CandidateName)
+														</span>
+													</td>
+
+												<tr>
+													<td><svg id="B_@item.Barcode" style="margin-top:-10px"></svg></td>
+													<td valign="top">
+														<span style="font-size:10px;">
+															@item.LabCode<br />
+															@item.Age / @item.Gender
+														</span>
+													</td>
+												</tr>
+											</table>
+											<table style="margin-top:-15px;">
+												<tr>
+													<td colspan="2">
+														<span style="font-size: 9px">URINE ROUTINE</span>
+													</td>
+
+												</tr>
+												<tr>
+													<td colspan="2">
+														<span style="font-size: 8px;">
+															KANTIPUR DIAGNOSTIC CENTER PVT.LTD
+														</span>
+													</td>
+
+												</tr>
+
+											</table>
+										</div>
+										<div id="F_@item.Barcode">
+											<table>
+												<tr>
+													<td colspan="2">
+														<span style="font-size: 9px;">
+															@Html.DisplayFor(modelItem => item.CandidateName)
+														</span>
+													</td>
+
+												<tr>
+													<td><svg id="B_@item.Barcode" style="margin-top:-10px"></svg></td>
+													<td valign="top">
+														<span style="font-size:11px;">
+															@item.LabCode<br />
+															@item.Age / @item.Gender
+														</span>
+													</td>
+												</tr>
+											</table>
+
+											<table style="margin-top:-15px;">
+												<tr>
+													<td colspan="2">
+														<span style="font-size: 9px;">STOOL ROUTINE</span>
+													</td>
+
+												</tr>
+												<tr>
+													<td colspan="2">
+														<span style="font-size: 8px;">
+															KANTIPUR DIAGNOSTIC CENTER PVT.LTD
+														</span>
+													</td>
+
+												</tr>
+
+											</table>
+
+										</div>
+										<div id="C_@item.Barcode">
+
+											<table>
+												<tr>
+													<td colspan="2">
+														<span style="font-size: 9px;">
+															@Html.DisplayFor(modelItem => item.CandidateName)
+														</span>
+													</td>
+
+												<tr>
+													<td><svg id="B_@item.Barcode" style="margin-top:-10px"></svg></td>
+													<td valign="top">
+														<span style="font-size:11px;">
+															@item.LabCode<br />
+															@item.Age / @item.Gender
+														</span>
+													</td>
+												</tr>
+											</table>
+
+											<table style="margin-top:-15px;">
+
+												<tr>
+													<td colspan="2">
+														<span style="font-size: 8px;">
+															HIV I % II(ELISA),HBsAg ELISA,ANTI-HCV <br />
+														</span><span style="font-size: 9px;">
+															ELISA TPHA SUGAR RANDOM LFT
+														</span>
+													</td>
+												</tr>
+												<tr>
+													<td colspan="2">
+														<span style="font-size: 8px;">
+															KANTIPUR DIAGNOSTIC CENTER PVT.LTD
+														</span>
+													</td>
+
+												</tr>
+
+											</table>
+
+										</div>
+										<div id="D_@item.Barcode">
+											<div style="margin-top:-5px">
+												<table>
+													<tr>
+														<td colspan="2">
+															<span style="font-size: 9px;">
+																@Html.DisplayFor(modelItem => item.CandidateName)
+															</span>
+														</td>
+
+													<tr>
+														<td><svg id="B_@item.Barcode" style="margin-top:-10px"></svg></td>
+														<td valign="top">
+															<span style="font-size:11px;">
+																@item.LabCode<br />
+																@item.Age / @item.Gender
+															</span>
+														</td>
+													</tr>
+												</table>
+
+
+												<table style="margin-top:-15px;">
+													<tr>
+														<td colspan="2">
+															<span style="font-size: 7px;">
+																CBC VDRL M.P, M.F, BLOOD GROUPING,
+															</span><br />
+															<span style="font-size: 7px;">
+																BLOOD UREA, SERUM, CREATININE, GAMMA,
+															</span><br />
+															<span style="font-size: 7px;">
+																GLUTAMYL TRANSFERASF (GGT)
+															</span>
+														</td>
+
+													</tr>
+													<tr>
+														<td colspan="2">
+															<span style="font-size: 8px; ">
+																KANTIPUR DIAGNOSTIC CENTER PVT.LTD
+															</span>
+														</td>
+
+													</tr>
+
+												</table>
+											</div>
+										</div>
+										<div id="E_@item.Barcode">
+											<table>
+												<tr>
+													<td colspan="2">
+														<span style="font-size: 9px;">
+															@Html.DisplayFor(modelItem => item.CandidateName)
+														</span>
+													</td>
+
+												<tr>
+													<td><svg id="B_@item.Barcode" style="margin-top:-10px"></svg></td>
+													<td valign="top">
+														<span style="font-size:11px;">
+															@item.LabCode<br />
+															@item.Age / @item.Gender
+														</span>
+													</td>
+												</tr>
+											</table>
+
+											<table style="margin-top:-15px;">
+												<tr>
+													<td colspan="2">
+														<span style="font-size: 9px; ">CHEST X-RAY</span>
+													</td>
+
+												</tr>
+												<tr>
+													<td colspan="2">
+														<span style="font-size: 8px;">
+															KANTIPUR DIAGNOSTIC CENTER PVT.LTD
+														</span>
+													</td>
+
+												</tr>
+
+											</table>
+
+										</div>
+										<script>
+                                                    JsBarcode("#B_@item.Barcode", "@item.Barcode", {
+                                                        width: 1,
+                                                        height: 35,
+                                                        marginLeft: 2,
+                                                        displayValue: false,
+                                                        background: "none",
+                                                    });
+										</script>
+
+
+									</td>
+									@*<td>
+											@Html.DisplayFor(modelItem => item.BloodGroupName)
+										</td>*@
+									<td>
+										@if (item.LabTestEnteredBy <= 0 || item.LabTestEnteredBy == null)
+										{
+										<a href="~/LabEntry/Create/@item.CandidateID"><span class="btn btn-success btn-xs">Add</span></a>
+										}
+										<a href="~/LabEntry/Details/@item.CandidateID"> <span class="btn btn-primary btn-xs">Detail</span></a><br />
+										<a class="btn btn-xs btn-success" href="javascript:void(0);" onclick="printPageArea('A_@item.Barcode')">Urine</a>
+										<a class="btn btn-xs btn-success" href="javascript:void(0);" onclick="printPageArea('F_@item.Barcode')">Stool</a> <br />
+										<a class="btn btn-xs btn-success" href="javascript:void(0);" onclick="printPageArea('C_@item.Barcode')">Sugar</a>
+										<a class="btn btn-xs btn-success" href="javascript:void(0);" onclick="printPageArea('D_@item.Barcode')">Blood</a> <br />
+										<a class="btn btn-xs btn-success" href="javascript:void(0);" onclick="printPageArea('E_@item.Barcode')">Chest X-Ray</a>
+										@if (item.LabTestEnteredBy != null || item.LabTestEnteredBy > 0)
+										{
+										<a href="@Url.Action("Edit", "LabEntry", new { id = item.CandidateID})"><span class="btn btn-warning btn-xs">Edit</span></a>
+										<a href="@Url.Action("GetFitStatus", "FitList", new {  id = item.CandidateID})"><span class="btn btn-success btn-xs">Status</span></a>
+										}
+									</td>
+								</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+

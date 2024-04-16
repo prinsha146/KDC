@@ -1,0 +1,1042 @@
+﻿@model KDC.DL.Models.CD_Candidate
+
+@{
+    ViewBag.Title = "LabCreate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var candidate = ViewBag.Detail;
+}
+
+<section class="content-header">
+    <h1>Lab Report Create</h1>
+    <ol class="breadcrumb">
+        <li class="list"><a href="@Url.Action("Index", "LabEntry")"><i class="fa fa-arrow-left"></i> List </a></li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-body">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="col-sm-12">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.CandidateID)
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <!-- Custom Tabs -->
+                            <div class="nav-tabs-custom">
+                                <ul class="nav nav-tabs">
+                                    <li><a href="#tab_1" data-toggle="tab">First Page</a></li>
+                                    <li class="active"><a href="#tab_2" data-toggle="tab">Second Page</a></li>
+                                </ul>
+                                <div class="tab-content clearfix">
+                                    <div class="tab-pane" id="tab_1">
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Full Name</label>
+                                            <div class="">
+                                                @Html.TextBoxFor(model => model.CandidateName, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(model => model.CandidateName, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        @*<div class="form-group col-sm-3">
+                                                <label class="control-label">Medical Center</label>
+                                                <div class="">
+                                                    @Html.EditorFor(model => model.MedicalCenterID, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.MedicalCenterID, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>*@
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">GCC Code</label>
+                                            <div class="">
+                                                <input name="GccCode" id="GccCode" class="form-control" value="06/01/03" readonly />
+                                                @*@Html.TextBoxFor(model => model.GccCode,  new { @class = "form-control" , @value = "06/01/03", @readonly = "readonly"} )*@
+                                                @Html.ValidationMessageFor(model => model.GccCode, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">GCC HMC</label>
+                                            <div class="">
+                                                <input name="GccHMC" id="GccHMC" class="form-control" value="GCC/18/192/18/18669495" readonly />
+                                                @*@Html.TextBoxFor(model => model.GccHMC, new { @class = "form-control", @value = "GCC/18/192/18/18669495", @readonly = "readonly" })*@
+                                                @Html.ValidationMessageFor(model => model.GccHMC, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Visa No.</label>
+                                            <div class="">
+                                                @Html.EditorFor(model => model.VisaNo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                @Html.ValidationMessageFor(model => model.VisaNo, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Visa Date</label>
+                                            <div class="">
+                                                @Html.TextBoxFor(model => model.VisaDate, new { @class = "form-control EngDate", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(model => model.VisaDate, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">RQ No Manpower</label>
+                                            <div class="">
+                                                @Html.EditorFor(model => model.RQNoManpower, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                @Html.ValidationMessageFor(model => model.RQNoManpower, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        @*<div class="form-group col-sm-3">
+                                                <label class="control-label">Gamca No</label>
+                                                <div class="">
+                                                    @Html.EditorFor(model => model.GamcaNo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                    @Html.ValidationMessageFor(model => model.GamcaNo, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>*@
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Date Of Issue By KDC (AD) </label>
+                                            <div class="">
+                                                @Html.TextBoxFor(model => model.DateOfIssueByKDC_AD, new { @class = "form-control EngDate", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(model => model.DateOfIssueByKDC_AD, "", new { @class = "text-danger", @readonly = "readonly" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Date Of Issue By KDC (BS) </label>
+                                            <div class="">
+                                                @Html.TextBoxFor(model => model.DateOfIssueByKDC_BS, new { @class = "form-control nepaliDate", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(model => model.DateOfIssueByKDC_BS, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Address</label>
+                                            <div class="">
+                                                @Html.DropDownListFor(model => model.Address, null, "-- Select --", new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Contact No.</label>
+                                            <div class="">
+                                                @Html.EditorFor(model => model.ContactNo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                @Html.ValidationMessageFor(model => model.ContactNo, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        @*<div class="form-group col-sm-3">
+                                            <label class="control-label">Gender</label>
+                                            <div class="">*@
+                                        @*@Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })*@
+                                        @*<select name="Gender" id="Gender" class="form-control"disabled>
+                                                <option value="">-- Select --</option>
+                                                <option value="M">Male</option>
+                                                <option value="F">Female</option>
+                                                <option value="O">Other</option>
+                                            </select>*@
+
+                                        @*@Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>*@
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">DOB (AD) </label>
+                                            <div class="">
+                                                @Html.EditorFor(model => model.DOB_AD, new { htmlAttributes = new { @class = "form-control EngDate", @readonly = "readonly" } })
+                                                @Html.ValidationMessageFor(model => model.DOB_AD, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">DOB (BS) </label>
+                                            <div class="">
+                                                @Html.EditorFor(model => model.DOB_BS, new { htmlAttributes = new { @class = "form-control nepaliDate", @readonly = "readonly" } })
+                                                @Html.ValidationMessageFor(model => model.DOB_BS, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Height(in cm)</label>
+                                            <div class="">
+                                                @Html.EditorFor(model => model.Height_in_cm, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                @Html.ValidationMessageFor(model => model.Height_in_cm, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Weight (in kg)</label>
+                                            <div class="">
+                                                @Html.EditorFor(model => model.Weight_in_kg, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                @Html.ValidationMessageFor(model => model.Weight_in_kg, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Nationality</label>
+                                            <div class="">
+                                                <input name="Nationality" id="Nationality" class="form-control" value="Nepali" readonly />
+                                                @*@Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { @class = "form-control", value="Nepali", @readonly = "readonly" } })*@
+                                                @Html.ValidationMessageFor(model => model.Nationality, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Job Profession</label>
+                                            <div class="">
+                                                @Html.DropDownListFor(model => model.JobProfessionID, null, "-- Select Profession --", new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(model => model.JobProfessionID, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Passport No.</label>
+                                            <div class="">
+                                                @Html.EditorFor(model => model.PassportNo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                @Html.ValidationMessageFor(model => model.PassportNo, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Passport Date (AD)</label>
+                                            <div class="">
+                                                @Html.TextBoxFor(model => model.PassportDateAD, new { @class = "form-control EngDate", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(model => model.PassportDateAD, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Passport Date (BS)</label>
+                                            <div class="">
+                                                @Html.TextBoxFor(model => model.PassportDateBS, new { @class = "form-control nepaliDate", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(model => model.PassportDateBS, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Passport Place Of Issue</label>
+                                            <div class="">
+                                                @Html.DropDownListFor(model => model.PassportPlaceOfIssue, null, "-- Select --", new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(model => model.PassportPlaceOfIssue, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Recruiting Agency</label>
+                                            <div class="">
+                                                @Html.DropDownListFor(model => model.RecruitingAgencyID, null, "-- Select --", new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(model => model.RecruitingAgencyID, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">VisaStamping Country</label>
+                                            <div class="">
+                                                @Html.DropDownListFor(model => model.VisaStampingCountryID, null, "-- Select --", new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(model => model.VisaStampingCountryID, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Invoice No.</label>
+                                            <div class="">
+                                                @Html.EditorFor(model => model.InvoiceNo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                @Html.ValidationMessageFor(model => model.InvoiceNo, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Allergy</label>
+                                            <div class="">
+                                                <div class="checkbox">
+                                                    @*@Html.RadioButtonFor(model => model.Allergy,true) Yes &nbsp; &nbsp;
+                                                        @Html.RadioButtonFor(model => model.Allergy,false, new { @checked = "checked"}) No*@
+                                                    <select class="form-control" id="Allergy" name="Allergy" disabled>
+                                                        t
+                                                        <option value="false">None</option>
+                                                        <option value="true">Some</option>
+                                                    </select>
+                                                    @Html.ValidationMessageFor(model => model.Allergy, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Others</label>
+                                            <div class="">
+                                                <div class="checkbox">
+                                                    <input name="Others" id="Others" value="Normal" class="form-control" readonly />
+                                                    @Html.ValidationMessageFor(model => model.Others, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        @*<div class="form-group col-sm-3">
+                                                                                <label class="control-label">FingerPrint</label>
+                                                                                <div class="">
+                                                                                    @Html.EditorFor(model => model.FingerPrint, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                                                    @Html.ValidationMessageFor(model => model.FingerPrint, "", new { @class = "text-danger" })
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group col-sm-3">
+                                                                                <label class="control-label">Finger Print Remarks</label>
+                                                                                <div class="">
+                                                                                    @Html.EditorFor(model => model.FingerPrintRemarks, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                                                    @Html.ValidationMessageFor(model => model.FingerPrintRemarks, "", new { @class = "text-danger" })
+                                                                                </div>
+                                                                            </div>
+
+
+
+                                                                            <div class="form-group col-sm-3">
+                                                <label class="control-label">Photo Camera</label>
+                                                <div class="">
+                                                    @Html.EditorFor(model => model.PhotoCamera, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                    @Html.ValidationMessageFor(model => model.PhotoCamera, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>*@
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Photo Scanned</label>
+                                            <div class="">
+                                                @Html.EditorFor(model => model.PhotoScanned, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                @Html.ValidationMessageFor(model => model.PhotoScanned, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Barcode</label>
+                                            <div class="">
+
+                                                @Html.EditorFor(model => model.Barcode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                @Html.ValidationMessageFor(model => model.Barcode, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <!--  <div class="form-group col-sm-3">
+                                            <label class="control-label">CandidateDetailsEnteredBy</label>
+                                            <div class="">
+                                                @Html.EditorFor(model => model.CandidateDetailsEnteredBy, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                @Html.ValidationMessageFor(model => model.CandidateDetailsEnteredBy, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div> -->
+                                        <!--<div class="form-group col-sm-3">
+                                            <label class="control-label">CandidateDetailsEnteredDate</label>
+                                            <div class="">
+                                                @Html.EditorFor(model => model.CandidateDetailsEnteredDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                @Html.ValidationMessageFor(model => model.CandidateDetailsEnteredDate, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>-->
+                                        @*<div class="form-group col-sm-3">
+                                                <label class="control-label">Lab No Id</label>
+                                                <div class="">
+                                                    @Html.EditorFor(model => model.LabNoIdThisYear, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.LabNoIdThisYear, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>*@
+
+
+                                        <div class="clearfix"></div>
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Right Eye</label>
+                                            <div class="">
+                                                <input type="text" class="form-control" name="RightEye" id="RightEye" value="6/6" readonly />
+                                                @*@Html.EditorFor(model => model.RightEye, new { htmlAttributes = new { @class = "form-control",@Value = "12" } })*@
+                                                @Html.ValidationMessageFor(model => model.RightEye, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Left Eye</label>
+                                            <div class="">
+                                                <input type="text" class="form-control" name="LeftEye" id="LeftEye" value="6/6" readonly />
+                                                @*@Html.EditorFor(model => model.LeftEye, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                @Html.ValidationMessageFor(model => model.LeftEye, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Right Ear</label>
+                                            <div class="">
+                                                <input type="text" class="form-control" name="RightEar" id="RightEar" value="Normal" readonly />
+                                                @*@Html.EditorFor(model => model.RightEar, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                @Html.ValidationMessageFor(model => model.RightEar, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            <label class="control-label">Left Ear</label>
+                                            <div class="">
+                                                <input type="text" class="form-control" name="LeftEar" id="LeftEar" value="Normal" readonly />
+                                                @*@Html.EditorFor(model => model.LeftEar, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                @Html.ValidationMessageFor(model => model.LeftEar, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            @Html.LabelFor(model => model.BloodPressure, "Blood Pressure", htmlAttributes: new { @class = "control-label" })
+                                            <div class="">
+                                                @Html.EditorFor(model => model.BloodPressure, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                @Html.ValidationMessageFor(model => model.BloodPressure, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            @Html.LabelFor(model => model.Heart, htmlAttributes: new { @class = "control-label" })
+                                            <div class="">
+                                                <input type="text" class="form-control" name="Heart" id="Heart" value="Normal" readonly />
+                                                @*@Html.EditorFor(model => model.Heart, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                @Html.ValidationMessageFor(model => model.Heart, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            @Html.LabelFor(model => model.Lungs, htmlAttributes: new { @class = "control-label" })
+                                            <div class="">
+                                                <input type="text" class="form-control" name="Lungs" id="Lungs" value="Normal" readonly />
+                                                @*@Html.EditorFor(model => model.Lungs, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                @Html.ValidationMessageFor(model => model.Lungs, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            @Html.LabelFor(model => model.Chest, htmlAttributes: new { @class = "control-label" })
+                                            <div class="">
+                                                <input type="text" class="form-control" name="Chest" id="Chest" value="Normal" readonly />
+                                                @*@Html.EditorFor(model => model.Chest, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                @Html.ValidationMessageFor(model => model.Chest, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            @Html.LabelFor(model => model.Abdomen, htmlAttributes: new { @class = "control-label" })
+                                            <div class="">
+                                                <input type="text" class="form-control" name="Abdomen" id="Abdomen" value="Normal" readonly />
+                                                @*@Html.EditorFor(model => model.Abdomen, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                @Html.ValidationMessageFor(model => model.Abdomen, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            @Html.LabelFor(model => model.Hernia, htmlAttributes: new { @class = "control-label" })
+                                            <div class="">
+                                                <input type="text" class="form-control" name="Hernia" id="Hernia" value="Absent" readonly />
+                                                @*@Html.EditorFor(model => model.Hernia, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                @Html.ValidationMessageFor(model => model.Hernia, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            @Html.LabelFor(model => model.Veins, htmlAttributes: new { @class = "control-label" })
+                                            <div class="">
+                                                <input type="text" class="form-control" name="Veins" id="Veins" value="Absent" readonly />
+                                                @*@Html.EditorFor(model => model.Veins, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                @Html.ValidationMessageFor(model => model.Veins, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            @Html.LabelFor(model => model.Extermities, htmlAttributes: new { @class = "control-label" })
+                                            <div class="">
+                                                <input type="text" class="form-control" name="Extermities" id="Extermities" value="Normal" readonly />
+                                                @*@Html.EditorFor(model => model.Extermities, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                @Html.ValidationMessageFor(model => model.Extermities, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            @Html.LabelFor(model => model.Deformities, htmlAttributes: new { @class = "control-label" })
+                                            <div class="">
+                                                <input type="text" class="form-control" name="Deformities" id="Deformities" value="Absent" readonly />
+                                                @*@Html.EditorFor(model => model.Deformities, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                @Html.ValidationMessageFor(model => model.Deformities, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            @Html.LabelFor(model => model.Skin, htmlAttributes: new { @class = "control-label" })
+                                            <div class="">
+                                                <input type="text" class="form-control" name="Skin" id="Skin" value="Normal" readonly />
+                                                @*@Html.EditorFor(model => model.Skin, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                @Html.ValidationMessageFor(model => model.Skin, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            @Html.LabelFor(model => model.Clinical, htmlAttributes: new { @class = "control-label" })
+                                            <div class="">
+                                                <input type="text" class="form-control" name="Clinical" id="Clinical" value="Not Present" readonly />
+                                                @*@Html.EditorFor(model => model.Clinical, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                @Html.ValidationMessageFor(model => model.Clinical, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            @Html.LabelFor(model => model.Cns, htmlAttributes: new { @class = "control-label" })
+                                            <div class="">
+                                                <input type="text" class="form-control" name="Cns" id="Cns" value="Normal" readonly />
+                                                @*@Html.EditorFor(model => model.Cns, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                @Html.ValidationMessageFor(model => model.Cns, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-3">
+                                            @Html.LabelFor(model => model.Pshychiatry, htmlAttributes: new { @class = "control-label" })
+                                            <div class="">
+                                                <input type="text" class="form-control" name="Pshychiatry" id="Pshychiatry" value="Normal" readonly />
+                                                @*@Html.EditorFor(model => model.Pshychiatry, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                @Html.ValidationMessageFor(model => model.Pshychiatry, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_2" class="tab-pane active">
+                                        <div class="row">
+                                            <div class="form-group col-sm-3">
+                                                <label class="control-label">Full Name</label>
+                                                <div class="">
+                                                    <span class="form-control" readonly>@Model.CandidateName</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-sm-3">
+                                                <label class="control-label">Gender</label>
+                                                <div class="">
+                                                    @if (Model.Gender == "M")
+                                                    {<span class="form-control" readonly>Male</span>}
+                                                    else if (Model.Gender == "F")
+                                                    { <span class="form-control" readonly>Female</span> }
+                                                    else
+                                                    { <span class="form-control" readonly>Other</span>}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-sm-3">
+                                                <label class="control-label">Lab Code</label>
+                                                <div class="">
+                                                    <span class="form-control" readonly>@Model.LabCode</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-3">
+                                                <label class="control-label">Helminthes</label>
+                                                <div class="">
+                                                    <input type="text" class="form-control" name="Helminthes" id="Helminthes" value="Not Found" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-sm-3">
+                                                <label class="control-label">Giardia</label>
+                                                <div class="">
+                                                    <input type="text" class="form-control" name="Giardia" id="Giardia" value="Not Found" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-sm-3">
+                                                <label class="control-label">Salmonella</label>
+                                                <div class="">
+                                                    <input type="text" class="form-control" name="Salmonella" id="Salmonella" value="Not Applicable" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-sm-3">
+                                                <label class="control-label">Haemo</label>
+                                                <div class="">
+                                                    <input type="text" class="form-control" name="Haemo" id="Haemo" value="1" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-sm-3">
+                                                <label class="control-label">Malaria</label>
+                                                <div class="">
+                                                    <input type="text" class="form-control" name="Malaria" id="Malaria" value="Not Found" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-sm-3">
+                                                <label class="control-label">Microf</label>
+                                                <div class="">
+                                                    <input type="text" class="form-control" name="Microf" id="Microf" value="Not Found" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-sm-3">
+                                                <label class="control-label">Fbs</label>
+                                                <div class="">
+                                                    <input type="text" class="form-control" name="FBS" id="FBS" value="1" />
+                                                    @Html.ValidationMessageFor(model => model.FBS, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-sm-3">
+                                                <label class="control-label">Lft</label>
+                                                <div class="">
+                                                    <input type="text" class="form-control" name="LFT" id="LFT" value="Normal" />
+                                                    @Html.ValidationMessageFor(model => model.LFT, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <!--<div class="form-group col-sm-3">
+                                                <label class="control-label">Creatinine</label>
+                                                <div class="">
+                                                    <input type="text" class="form-control" name="Creatinine" id="Creatinine" value="0" />
+                                                    @Html.ValidationMessageFor(model => model.Creatinine, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>-->
+
+
+                                            <div class="form-group col-sm-3">
+                                                <label class="control-label">Remarks</label>
+                                                <div class="">
+                                                    @Html.TextAreaFor(model => model.Remarks, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">Hb</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        @*@Html.TextBoxFor(model => model.UHb, new { @class = "form-control" })g%*@
+                                                        <div class="input-group">
+                                                            <input type="text" name="UHb" id="UHb" class="form-control" />
+                                                            <span class="input-group-addon">  g%</span>
+                                                        </div>
+
+                                                        @Html.ValidationMessageFor(model => model.UHb, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">TC</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        @*@Html.TextBoxFor(model => model.UTC_in_cumm, new { @class = "form-control" })*@
+                                                        <div class="input-group">
+                                                            <input type="text" name="UTC_in_cumm" id="UTC_in_cumm" class="form-control" />
+                                                            <span class="input-group-addon">  /cumm</span>
+                                                        </div>
+                                                        @Html.ValidationMessageFor(model => model.UTC_in_cumm, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">HIV 1/2</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="UHIV_1_2" id="UHIV_1_2" class="form-control" value="Negative" />
+                                                        @*@Html.TextBoxFor(model => model.UHIV_1_2, new { @class = "form-control" })*@
+                                                        @Html.ValidationMessageFor(model => model.UHIV_1_2, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">HBsAg</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        @*@Html.TextBoxFor(model => model.UHBsAg, new { @class = "form-control" })*@
+                                                        <input type="text" name="UHBsAg" id="UHBsAg" class="form-control" value="Negative" />
+                                                        @Html.ValidationMessageFor(model => model.UHBsAg, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">Anti-HCV</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        @*@Html.TextBoxFor(model => model.UAnti_HCV, new { @class = "form-control" })*@
+                                                        <input type="text" name="UAnti_HCV" id="UAnti_HCV" class="form-control" value="Negative" />
+                                                        @Html.ValidationMessageFor(model => model.UAnti_HCV, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">TPHA</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        @*@Html.TextBoxFor(model => model.UTPHA, new { @class = "form-control" })*@
+                                                        <input type="text" name="UTPHA" id="UTPHA" class="form-control" value="Negative" />
+                                                        @Html.ValidationMessageFor(model => model.UTPHA, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">VDRL</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        @*@Html.TextBoxFor(model => model.UVDRL, new { @class = "form-control" })*@
+                                                        <input type="text" name="UVDRL" id="UVDRL" class="form-control" value="Non reactive" />
+                                                        @Html.ValidationMessageFor(model => model.UVDRL, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">M.P.</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        @*@Html.TextBoxFor(model => model.UMP, new { @class = "form-control" })*@
+                                                        <input type="text" name="UMP" id="UMP" class="form-control" value="Not Found" />
+                                                        @Html.ValidationMessageFor(model => model.UMP, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">M.F.</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        @*@Html.TextBoxFor(model => model.UMF, new { @class = "form-control" })*@
+                                                        <input type="text" name="UMF" id="UMF" class="form-control" value="Not Found" />
+                                                        @Html.ValidationMessageFor(model => model.UMF, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">Urine Re/Me</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        @*@Html.TextBoxFor(model => model.Urine_Re_Me, new { @class = "form-control" })*@
+                                                        <input type="text" name="Urine_Re_Me" id="Urine_Re_Me" class="form-control" value="" />
+                                                        @Html.ValidationMessageFor(model => model.Urine_Re_Me, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">Sugar</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        @*@Html.TextBoxFor(model => model.Usugar, new { @class = "form-control" })*@
+                                                        <input type="text" name="Usugar" id="Usugar" class="form-control" value="Nill" />
+                                                        @Html.ValidationMessageFor(model => model.Usugar, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">Albumin</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        @*@Html.TextBoxFor(model => model.Ualbumin, new { @class = "form-control" })*@
+                                                        <input type="text" name="Ualbumin" id="Ualbumin" class="form-control" value="Nill" />
+                                                        @Html.ValidationMessageFor(model => model.Ualbumin, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">Stool RE</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        @*@Html.TextBoxFor(model => model.Stool_RE, new { @class = "form-control" })*@
+                                                        <input type="text" name="Stool_RE" id="Stool_RE" class="form-control" value="NO OCT" />
+                                                        @Html.ValidationMessageFor(model => model.Stool_RE, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-7">
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-2">
+                                                        <label class="control-label">DC</label>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        N @Html.TextBoxFor(model => model.BDC_N, new { @class = "form-control" })
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        L @Html.TextBoxFor(model => model.BDC_L, new { @class = "form-control" })
+                                                    </div>
+
+                                                    <div class="col-sm-2">
+                                                        E @Html.TextBoxFor(model => model.BDC_E, new { @class = "form-control" })
+                                                    </div>
+
+                                                    <div class="col-sm-2">
+                                                        M @Html.TextBoxFor(model => model.BDC_M, new { @class = "form-control" })
+                                                    </div>
+
+                                                    <div class="col-sm-2">
+                                                        B @Html.TextBoxFor(model => model.BDC_B, new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-2">
+                                                        <label class="control-label">Platelets</label>
+                                                    </div>
+                                                    <div class="col-sm-10">
+                                                        @*@Html.TextBoxFor(model => model.Platelets, new { @class = "form-control" })*@
+                                                        <div class="input-group">
+                                                            <input type="text" name="Platelets" id="Platelets" class="form-control" />
+                                                            <span class="input-group-addon">  [150000 - 450000] cu.mm</span>
+                                                        </div> 
+                                                        @Html.ValidationMessageFor(model => model.Platelets, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <div class="form-group col-sm-6">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">Sugar</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <div class="input-group">
+                                                            <input type="text" name="BSugar" id="BSugar" class="form-control" />
+                                                            <span class="input-group-addon"> mg%</span>
+                                                        </div>
+                                                        @Html.ValidationMessageFor(model => model.BSugar, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-sm-6">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">SGOT</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <div class="input-group">
+                                                            <input type="text" name="SGOT_Per" id="SGOT_Per" class="form-control" />
+                                                            <span class="input-group-addon"> IU/L</span>
+                                                        </div>
+                                                        @Html.ValidationMessageFor(model => model.SGOT_Per, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+
+                                                <div class="form-group col-sm-6">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">Creat</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <div class="input-group">
+                                                            <input type="text" name="Creatinine" id="Creatinine" class="form-control" />
+                                                            <span class="input-group-addon"> mg%</span>
+                                                        </div>
+                                                        @Html.ValidationMessageFor(model => model.Creatinine, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-sm-6">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">SGPT</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <div class="input-group">
+                                                            <input type="text" name="SGPT_Per" id="SGPT_Per" class="form-control" />
+                                                            <span class="input-group-addon"> IU/L</span>
+                                                        </div>
+                                                        @Html.ValidationMessageFor(model => model.SGPT_Per, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <hr />
+                                                <div class="form-group col-sm-6">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">Bill T/</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <div class="input-group">
+                                                            <input type="text" name="Bill_T_Per" id="Bill_T_Per" class="form-control" />
+                                                            <span class="input-group-addon"> mg%</span>
+                                                        </div>
+                                                        @Html.ValidationMessageFor(model => model.Bill_T_Per, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-sm-6">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">Bill D/</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <div class="input-group">
+                                                            <input type="text" name="Bil_D_Per" id="Bil_D_Per" class="form-control" />
+                                                            <span class="input-group-addon"> mg%</span>
+                                                        </div>
+                                                        @Html.ValidationMessageFor(model => model.Bil_D_Per, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+
+                                                <div class="form-group col-sm-6">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">Alk.Pho</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        @Html.TextBoxFor(model => model.Alk_Pho_Per, new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(model => model.Alk_Pho_Per, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-sm-6">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">Urea</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <div class="input-group">
+                                                            <input type="text" name="Urea_Per" id="Urea_Per" class="form-control" />
+                                                            <span class="input-group-addon"> mg%</span>
+                                                        </div>
+                                                        @Html.ValidationMessageFor(model => model.Urea_Per, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+
+                                                <div class="form-group col-sm-6">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">GGT</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        @Html.TextBoxFor(model => model.GGT_Per, new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(model => model.GGT_Per, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-sm-6">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">Albumin</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <div class="input-group">
+                                                            <input type="text" name="BAlbumin" id="BAlbumin" class="form-control" />
+                                                            <span class="input-group-addon"> mg%</span>
+                                                        </div>
+                                                        @Html.ValidationMessageFor(model => model.BAlbumin, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+
+                                                    <div class="form-group col-sm-6">
+                                                        <div class="col-sm-3">
+                                                            <label class="control-label">T.Pro</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            @Html.TextBoxFor(model => model.TPro_Per, new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(model => model.TPro_Per, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group col-sm-6">
+                                                        <div class="col-sm-3">
+                                                            <label class="control-label">ESR</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <div class="input-group">
+                                                                <input type="text" name="ESR_Per" id="ESR_Per" class="form-control" />
+                                                                <span class="input-group-addon"> mg%</span>
+                                                            </div>
+                                                            @Html.ValidationMessageFor(model => model.ESR_Per, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                <div class="clearfix"></div>
+                                                <hr />
+
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">Blood Grouping & RH.</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        @*<input type="text" class="form-control" name="BloodGroup_RH" id="BloodGroup_RH" />*@
+                                                        @Html.DropDownListFor(model => model.BloodGroup_RH, null, "-- Select --", new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(model => model.BloodGroup_RH, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                @if (candidate.Gender == "F")
+    {
+                                            <div class="form-group col-sm-12">
+                                                <div class="col-sm-3">
+                                                    <label class="control-label">Pregnancy</label>
+                                                </div>
+                                                <div class="">
+                                                    @Html.RadioButtonFor(model => model.Pregnancy, true) Positive&nbsp;&nbsp;&nbsp;
+                                                    @Html.RadioButtonFor(model => model.Pregnancy, false, new { @checked = "checked" }) Negative
+                                                    @Html.ValidationMessageFor(model => model.Pregnancy, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+}
+
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-3">
+                                                        <label class="control-label">Other</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        @Html.TextAreaFor(model => model.Other, new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(model => model.Other, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                @*<div class="form-group col-sm-12">
+            <div class="col-sm-3">
+                <label class="control-label">Fit Status</label>
+            </div>
+            <div class="col-sm-9">
+                <input type="radio" name="FitStatus"  id="Fit" value="true" onclick="remarks(this);" />Fit &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="FitStatus" id="UnFit" value="false" onclick="remarks(this);" checked/>Unfit
+            </div>
+        </div>
+
+        <div class="form-group col-sm-12" id="Remarks" style="display">
+            <div class="col-sm-3">
+                <label class="control-label">Unfit Remarks</label>
+            </div>
+            <div class="col-sm-9">
+                @Html.TextAreaFor(model => model.UnfitRemarks, new { @class = "form-control" })
+            </div>
+        </div>*@
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div><!-- /.col -->
+                            <!-- /.col -->
+                            @*</div>*@
+
+                            @*<div class="box-body">*@
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group col-sm-3">
+                                <div class="col-md-offset-2 ">
+                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                </div>
+                            </div>
+                            @*</div>*@
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+
+<script>
+
+    function remarks(that) {
+        //alert(that.value);
+        if (that.value == false) {
+            document.getElementById("Remarks").style.display = "block";
+        }
+        if (that.value == true) {
+            document.getElementById("Remarks").style.display = "none";
+        }
+
+    }
+
+</script>
+

@@ -1,0 +1,119 @@
+﻿@model KDC.DL.Models.OPD_Patient
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+        Add Patient
+    </h1>
+    <ol class="breadcrumb">
+        <li class="list"><a href="@Url.Action("Index", "OPDPatient")"><i class="fa fa-arrow-left"></i> List </a></li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box">
+        <div class="box-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.PatientId)
+
+                    <div class="form-group col-sm-12">
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.PatientName, "Patient Name", new { @class = "control-label" })
+                            <span class="text-danger">*</span>
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(model => model.PatientName, new { @class = "form-control", @required = "required" })
+                            <span class="text-danger" id="errormsg"></span>
+                            @Html.ValidationMessageFor(model => model.PatientName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.PatientCode, "Patient Code", new { @class = "control-label" })
+                            <span class="text-danger">*</span>
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(model => model.PatientCode, new { @class = "form-control", @required = "required" })
+                            <span class="text-danger" id="errormsg"></span>
+                            @Html.ValidationMessageFor(model => model.PatientCode, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.Age, "Age", new { @class = "control-label" })
+                            <span class="text-danger">*</span>
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(model => model.Age, new { @class = "form-control" })
+                            <span class="text-danger" id="errormsg"></span>
+                            @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-sm-2">
+                            <label class="control-label">Gender</label>
+                        </div>
+                        <div class="col-sm-3">
+                            @if (Model.Gender == "M")
+                            {
+                                <input type="radio" id="Gender" name="Gender" value="M" checked /> <span>Male &nbsp; &nbsp; &nbsp;</span>
+                                <input type="radio" id="Gender" name="Gender" value="F" /> <span>Female &nbsp; &nbsp; &nbsp;</span>
+                                <input type="radio" id="Gender" name="Gender" value="O" /> <span>Other</span>
+                            }
+                            @if (Model.Gender == "F")
+                            {
+                                <input type="radio" id="Gender" name="Gender" value="M" /> <span>Male &nbsp; &nbsp; &nbsp;</span>
+                                <input type="radio" id="Gender" name="Gender" value="F" checked /> <span>Female &nbsp; &nbsp; &nbsp;</span>
+                                <input type="radio" id="Gender" name="Gender" value="O" /> <span>Other</span>
+                            }
+                            @if (Model.Gender == "O")
+                            {
+                                <input type="radio" id="Gender" name="Gender" value="M" /> <span>Male &nbsp; &nbsp; &nbsp;</span>
+                                <input type="radio" id="Gender" name="Gender" value="F" /> <span>Female &nbsp; &nbsp; &nbsp;</span>
+                                <input type="radio" id="Gender" name="Gender" value="O" checked /> <span>Other</span>
+                            }
+
+                            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.Address, "Address", new { @class = "control-label" })
+                            <span class="text-danger">*</span>
+                        </div>
+                        <div class="col-sm-3">
+                            @*@Html.DropDownListFor(model => model.Address, null, "-- Select -- ", new { @class = "form-control select2" })*@
+							@Html.TextBoxFor(model => model.Address, new { @class = "form-control"})
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.Phone, "Phone", new { @class = "control-label" })
+                            <span class="text-danger">*</span>
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", @required = "required" })
+                            <span class="text-danger" id="errormsg"></span>
+                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-2">
+                            <input type="submit" id="btn" value="Save" class="btn btn-success" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

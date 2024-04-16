@@ -1,0 +1,155 @@
+﻿@model KDC.DL.ViewModel.VaccinationReportVM
+
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script>
+function printPageArea(areaID){
+    var printContent = document.getElementById(areaID);
+    var WinPrint = window.open('', '', 'width=900,height=650');
+    WinPrint.document.write(printContent.innerHTML);
+    WinPrint.document.close();
+    WinPrint.focus();
+    WinPrint.print();
+    WinPrint.close();
+}
+</script>
+
+<div class="col-sm-12">
+	<h3>XRAY Report</h3>
+	<div class="box box-primary">
+		<div class="box-body">
+			<div class="row">
+
+				@using (Html.BeginForm("Xray", "Report"))
+				{
+				@Html.AntiForgeryToken()
+					{
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label>Lab No.</label>
+							<input type="text" class="form-control" name="LabNo" id="LabNo" />
+						</div>
+					</div>
+
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label>Year</label>
+							@Html.DropDownList("Year", null, new { @class = "form-control" })
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="form-group">
+							<label><span style="color:#fff">print</span></label>
+							<input type="submit" class="form-control btn btn-primary" name="" value="Search" id="SearchLabCode" />
+						</div>
+					</div>
+					}
+				}
+				<div class="col-sm-2">
+					<div class="form-group">
+						<label><span style="color:#fff">print</span></label>
+						<a class="btn btn-success form-control" href="javascript:void(0);" onclick="printPageArea('printableArea')">Print</a>
+					</div>
+				</div>
+
+			</div>
+
+			<div id="printableArea">
+				<div style="font-weight: Bold; font-size: 15px; font-family: sans-serif; width: 210mm; height: 297mm; background: url('http://kdc.com.dandelion.arvixe.com/images/xray.jpg'); background-size: cover;">
+					<div>
+						<svg id="barcode" style="margin-left:359px; margin-top: 153px; position: absolute; left: -4px;height:90px"></svg>
+
+						<script>
+                                    JsBarcode("#barcode", "@Model.Barcode", {
+                                        width: 1,
+                                        height: 35,
+                                        marginLeft: 40,
+                                        displayValue: false,
+                                        background: "none",
+                                    });
+						</script>
+					</div>
+					<div style="height:2px">
+						&nbsp;
+					</div>
+					<div style="text-transform:Uppercase;margin-top: 152px;position: absolute;left: 653px;">@Model.LabCode</div>
+					@if (Model.RVNoToday != 0)
+					{
+					<div style="text-transform: Uppercase;margin-top: 186px;position: absolute;left: 656px;">RV- @Model.RVNoToday</div>
+					}
+					@if (Model.RVNoToday == 0)
+					{
+					<div style="text-transform: Uppercase;margin-top: 186px;position: absolute;left: 656px;">RV- 0</div>
+					}
+					<div style="text-transform: Uppercase;margin-top: 254px;position: absolute;left: 180px;">@Model.CandidateName</div>
+					<div style="text-transform: Uppercase;margin-top: 254px;position: absolute;left: 554px;">@(Model.DOB_AD != null ? ((DateTime)Model.DOB_AD).ToString("dd/MM/yyyy") : "")  </div>
+					<div style="text-transform: Uppercase;margin-top: 254px;position: absolute;left: 675px;">@Model.Gender (@Model.Age Y)</div>
+					<div style="text-transform: Uppercase;margin-top: 284px;position: absolute;left: 95px;">@(Model.CandidateDetailsEnteredDate != null ? ((DateTime)Model.CandidateDetailsEnteredDate).ToString("dd/MM/yyyy") : "") </div>
+					<div style="text-transform: Uppercase;margin-top: 311px;position: absolute;left: 229px;">@Model.PassportNo</div>
+
+
+					<div class="text-uppercase" style="margin-top: 372px;position: absolute;left: 638px;">
+						<img width="100px" src="http://kdc.com.dandelion.arvixe.com/images/tick.png" style="width: 15px;">
+					</div>
+
+					<div class="text-uppercase" style="margin-top: 469px;position: absolute;TEXT-ALIGN: CENTER;LEFT: 400PX;">
+						<u>@Model.CountryName</u>
+					</div>
+
+					<div class="text-uppercase" style="margin-top: 632px;position: absolute;left: 606px;">
+						<img src="http://kdc.com.dandelion.arvixe.com/images/lungs.JPG" style="width: 195px;">
+					</div>
+
+				</div>
+			</div>
+			<div class="clearfix"></div>
+
+
+			@using (Html.BeginForm("SearchLabRange", "Report"))
+			{
+			@Html.AntiForgeryToken()
+				{
+
+				<div class="row mt-10">
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label>From Lab No.</label>
+							<input type="text" class="form-control" name="From" id="From" />
+						</div>
+					</div>
+
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label>To Lab No.</label>
+							<input type="text" class="form-control" name="To" id="To" />
+						</div>
+					</div>
+
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label><span style="color:#fff">print</span></label>
+							<input type="submit" class="form-control btn btn-primary" name="" value="Find" id="SearchLabRange" />
+						</div>
+					</div>
+
+					@*<div class="col-sm-3">
+							<div class="form-group">
+								<label><span style="color:#fff">print</span></label>
+								<input type="submit"  class="form-control btn btn-primary" name="" value="Print" />
+							</div>
+						</div>*@
+				</div>
+				}
+			}
+
+
+		</div>
+	</div>
+</div>
+
+<div class="clearfix"></div>

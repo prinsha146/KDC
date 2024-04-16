@@ -1,0 +1,303 @@
+﻿@model KDC.DL.Models.BL_Patient
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+
+    var Item = (List<KDC.DL.Models.SV_Service>)ViewBag.ServiceId;
+    //var Item = ViewBag.ServiceId;
+    var Itemlist = "<option value=''> -- Select Service --</option>";
+    foreach (var a in Item)
+    {
+        Itemlist += "<option value='" + a.ServiceId + "'>" + a.ServiceName + "</option>";
+    }
+
+    <input type="hidden" name="hdItem" id="hdItem" value="@Itemlist" />
+
+}
+
+<section class="content-header">
+    <h1>Edit Candidate</h1>
+    <ol class="breadcrumb">
+        <li class="list"><a href="@Url.Action("Index", "Candidate")"><i class="fa fa-arrow-left"></i> List </a></li>
+    </ol>
+</section>
+
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-body">
+
+            @using (Html.BeginForm("Create", "Candidate", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="col-md-12">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.PatientId)
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group col-sm-3">
+                                <label class="control-label">Date:</label>
+                                <span class="text-danger">*</span>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.InvoiceDate, new { @class = "form-control EngDate", @required = "required" })
+                                    @Html.ValidationMessageFor(model => model.InvoiceDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-3">
+                                <label class="control-label">Date(BS): </label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.InvoiveDateBS, new { @class = "form-control nepaliDate" })
+                                    @Html.ValidationMessageFor(model => model.InvoiveDateBS, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label class="control-label">Invoice No.</label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.InvoiveNo, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.InvoiveNo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div class="form-group col-sm-3">
+                                <label class="control-label">Manual No.</label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.ManualNo, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ManualNo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-3">
+                                <label class="control-label">Age</label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.Age, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-3">
+                                <label class="control-label">Patient's Name</label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.PatientName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.PatientName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-3">
+                                <label class="control-label">Sex</label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.Gender, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-3">
+                                <label class="control-label">Address</label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-3">
+                                <label class="control-label">Referrer</label>
+                                <div class="">
+                                    @Html.DropDownListFor(model => model.ReferrerId, null, "-- Select --", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ManualNo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            @*<div class="form-group col-sm-3">
+                                    <label class="control-label">Click Here</label>
+                                    <div class="">
+                                        <input type="button" id="click" onclick="rateamount(20080124001);" />
+                                    </div>
+                                </div>*@
+
+                            <div>
+                                <table class="table table-bordered" id="items">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-sm-3">
+                                                Services
+                                                <span class="text-danger">*</span>
+                                            </th>
+                                            <th class="col-sm-2">
+                                                Unit
+                                                <span class="text-danger">*</span>
+                                            </th>
+                                            <th class="col-sm-2">
+                                                Rate
+                                            </th>
+                                            <th class="col-sm-2">
+                                                Amount
+                                            </th>
+                                            <th class="col-sm-2">
+                                                Remarks
+                                            </th>
+                                            <th class="col-sm-1">
+                                                Action
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+
+                                    <tfoot>
+                                        <tr>
+                                            <td>
+                                                <span onclick="addItem()" class="btn btn-primary" id="add"><i class="fade fa-plus"></i>Add Service</span>
+                                            </td>
+
+                                        </tr>
+
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <th style="text-align: right"><input type="button" class="btn btn-primary" onclick="calculateTotal()" value="Total Amount" /></th>
+                                            <td><input type="number" name="totalAmount" value="" id="totalAmount" class="form-control" required readonly /></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<script>
+
+    $(function () {
+        $('#items').on("click", "tr a", function (e) {
+            e.preventDefault();
+            if (confirm("Are you sure to remove?")) {
+                $(this).parents('tr').remove();
+
+            }
+        });
+    });
+
+    var itemindex = 1;
+
+    function addItem() {
+
+        msg = '<tr><input type ="hidden" name="hditemindex" value="' + itemindex + '" class="rowcount"/> ';
+
+        msg += '<input type="hidden" name="ItemId-' + itemindex + '" id="ItemId-' + itemindex + '" value="' + itemindex + '" class="form-control" required/>';
+
+        //msg += '<td><input name="ItemName-' + itemindex + '" id="ItemName-' + itemindex + '" value="" class="form-control" required /></td>';
+        msg += '<td><select class="form-control" name="ItemName-' + itemindex + '" id="ItemName-' + itemindex + '" required = "required" onchange="rateamount('+itemindex+')">';
+        msg += document.getElementById("hdItem").value;
+        msg += '</select></td>';
+
+        //msg += '<td><input type="number" name="ItemQuantity-' + itemindex + '" id="ItemQuantity-' + itemindex + '" value="" class="form-control" required /></td>';
+        msg += '<td><input name="ItemUnit-' + itemindex + '" id="ItemUnit-' + itemindex + '" value="" class="form-control" required /></td>';
+
+        //msg += '<td><input name="ItemUnit-' + itemindex + '" id="ItemUnit-' + itemindex + '" value="" class="form-control" required /></td>';
+        //msg += '<td><select class="form-control" name="ItemUnit-' + itemindex + '" id="ItemUnit-' + itemindex + '" required = "required">';
+        //msg += document.getElementById("hdUnit").value;
+        //msg += '</select></td>';
+
+        msg += '<td><input type="text" name="ItemRate-' + itemindex + '" id="ItemRate-' + itemindex + '" value="" class="form-control" readonly /></td>';
+
+        msg += '<td><input type="text" name="ItemAmount-' + itemindex + '" id="ItemAmount-' + itemindex + '" value="" class="form-control" readonly /></td>';
+
+        msg += '<td><input type="text" name="ItemRemarks-' + itemindex + '" id="ItemRemarks-' + itemindex + '" value="" class="form-control" /></td>';
+
+        msg += '<td><a href="" class="btn" title="Remove"><span id="remove-' + itemindex + '"><i class ="fa fa-times"></i></span></a>';
+        msg += '</tr>';
+
+        $('table#items tbody').append(msg);
+
+        $('#ItemName-' + itemindex + '').change(function () {
+
+            isUnique();
+        });
+
+        $('#ItemUnit-' + itemindex + '').blur(function () {
+            totalamount();
+        });
+
+        function totalamount() {
+            for (var i = 1; i < itemindex; i++) {
+                var index = itemindex - 1;
+                //alert(index);
+                if ($('#ItemId-' + i + '').val() == i) {
+                    var amount = $('#ItemUnit-' + i + '').val() * $('#ItemRate-' + i + '').val();
+                    //alert(amount);
+                }
+
+                document.getElementById('ItemAmount-' + i + '').value = amount;
+            }
+        }
+        itemindex++;
+    }
+
+
+    function rateamount(i) {
+        if ($('#ItemId-' + i).val() == i) {
+            var service = $('#ItemName-' + i).val();
+            alert(service);
+            $.ajax({
+                data: { id: service },
+                type: "POST",
+                url: '@Url.Action("RateAmount", "PatientBilling")',
+                success: function (response) {
+                    var rate = response;
+                    alert(rate);
+                    document.getElementById('ItemRate-' + i).value = rate;
+                }
+            });
+        }
+    }
+
+       ////
+
+        function isUnique() {
+            var a = $('#ItemName-' + [itemindex - 1] + '').val();
+            if ($('#ItemId-' + [itemindex - 1] + '').val() > 1)
+            {
+                for (var i = 1; i < itemindex-1; i++) {
+                   // var index = itemindex - 1;
+
+                    var x = $('#ItemName-' + i + '').val();
+                    if (a == x) {
+                        $('#btn').attr("disabled", "disabled");
+                        alert("Item already listed!!");
+                    }
+                    else {
+                        $('#btn').removeAttr("disabled");
+                    }
+                }
+            }
+
+        }
+
+
+    function calculateTotal() {
+        var total = 0;
+        for (var i = 1; i < itemindex; i++) {
+            var amount = $('#ItemAmount-' + i + '').val();
+            total = parseFloat(amount) + parseFloat(total);
+        }
+
+        document.getElementById('totalAmount').value = total;
+    }
+
+    //$('#StudentId').change(function () {
+    //    var a = $('#StudentId').val();
+    //    document.getElementById('student').value = a;
+    //})
+
+</script>
+

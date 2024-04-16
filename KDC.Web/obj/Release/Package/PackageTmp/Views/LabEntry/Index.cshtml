@@ -1,0 +1,140 @@
+﻿@model IEnumerable<KDC.DL.ViewModel.CandidateVM>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content-header">
+    <h1>Lab Report List</h1>
+    <ol class="breadcrumb">
+        <li class="list"><a href="@Url.Action("Index", "Candidate")"><i class="fa fa-arrow-left"></i> Candidate List </a></li>
+        <li><a href="@Url.Action("UnFitCandidate", "FitList")"> Unfit Candidates </a></li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-body pt-10">
+            <div>
+
+                @using (Html.BeginForm())
+    {
+            @Html.AntiForgeryToken()
+{
+
+            <form style="background:#eee" class="col-sm-12 p-10 mb-10">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Lab No.</label>
+                        <input type="text" class="form-control" name="LabCode" id="LabCode" />
+                    </div>
+                </div>
+
+
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label><span style="color: #EEEEEE">print</span></label>
+                        <input type="submit" class="form-control btn btn-primary" name="search" id="search" value="Search" />
+                    </div>
+                </div>
+            </form>
+}
+}
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Custom Tabs -->
+                    <div class="table-responsive">
+                        <table id="example" class="table table-bordered table-striped table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayName("Candidate Name")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DistrictName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Contact No")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Gender)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("DOB")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Visa No")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Job Profession")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Passport No")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Blood Group")
+                                    </th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CandidateName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DistrictName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ContactNo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Gender)
+                                        </td>
+                                        <td>
+                                            @*@Html.DisplayFor(modelItem => item.DOB_AD)*@
+                                            @(((DateTime)item.DOB_AD).ToString("yyyy/MM/dd"))
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.VisaNo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Job)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PassportNo)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BloodGroupName)
+                                        </td>
+                                        <td>
+                                            @if (item.LabTestEnteredBy <= 0 || item.LabTestEnteredBy == null)
+                                            {
+                                                <a href="~/LabEntry/Create/@item.CandidateID"><span class="btn btn-success btn-xs">Add</span></a>
+                                            }
+                                            <a href="~/LabEntry/Details/@item.LabCode"> <span class="btn btn-primary btn-xs">Detail</span></a>
+                                            @if (item.LabTestEnteredBy != null || item.LabTestEnteredBy > 0)
+                                            {
+                                                <a href="@Url.Action("Edit", "LabEntry", new { id = item.LabCode})"><span class="btn btn-warning btn-xs">Edit</span></a>
+                                                <a href="@Url.Action("GetFitStatus", "FitList", new {  id = item.CandidateID})"><span class="btn btn-success btn-xs">Status</span></a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

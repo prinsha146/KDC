@@ -1,0 +1,12 @@
+E:\Amsoft_project\Kantipur Diagostic\KDC\KDC.DL\bin\Release\KDC.DL.dll.config
+E:\Amsoft_project\Kantipur Diagostic\KDC\KDC.DL\bin\Release\KDC.DL.dll
+E:\Amsoft_project\Kantipur Diagostic\KDC\KDC.DL\bin\Release\KDC.DL.pdb
+E:\Amsoft_project\Kantipur Diagostic\KDC\KDC.DL\bin\Release\Dapper.dll
+E:\Amsoft_project\Kantipur Diagostic\KDC\KDC.DL\bin\Release\EntityFramework.dll
+E:\Amsoft_project\Kantipur Diagostic\KDC\KDC.DL\bin\Release\EntityFramework.SqlServer.dll
+E:\Amsoft_project\Kantipur Diagostic\KDC\KDC.DL\bin\Release\EntityFramework.xml
+E:\Amsoft_project\Kantipur Diagostic\KDC\KDC.DL\bin\Release\EntityFramework.SqlServer.xml
+E:\Amsoft_project\Kantipur Diagostic\KDC\KDC.DL\obj\Release\KDC.DL.csprojResolveAssemblyReference.cache
+E:\Amsoft_project\Kantipur Diagostic\KDC\KDC.DL\obj\Release\KDC.DL.csproj.CoreCompileInputs.cache
+E:\Amsoft_project\Kantipur Diagostic\KDC\KDC.DL\obj\Release\KDC.DL.dll
+E:\Amsoft_project\Kantipur Diagostic\KDC\KDC.DL\obj\Release\KDC.DL.pdb

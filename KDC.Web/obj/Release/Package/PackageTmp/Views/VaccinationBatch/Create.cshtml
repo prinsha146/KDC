@@ -1,0 +1,102 @@
+﻿@model KDC.DL.Models.MS_VaccinationBatch
+
+@{
+    ViewBag.Title = "Create";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+        Add Vaccination Batch
+    </h1>
+    <ol class="breadcrumb">
+        <li class="list"><a href="@Url.Action("Index", "VaccinationBatch")"><i class="fa fa-arrow-left"></i> List </a></li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box">
+        <div class="box-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group col-sm-12">
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.VaccinationTypeId, "Vaccination Type", new { @class = "control-label" })
+                            <span class="text-danger">*</span>
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.DropDownListFor(model => model.VaccinationTypeId, null, "-- Select --", new { @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.VaccinationTypeId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.Details, "Details", new { @class = "control-label" })
+                            <span class="text-danger">*</span>
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(model => model.Details, new { @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.Manufacturer, "Manufacturer", new { @class = "control-label" })
+                            <span class="text-danger">*</span>
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(model => model.Manufacturer, new { @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.Manufacturer, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.BatchNo, "Batch No", new { @class = "control-label" })
+                            <span class="text-danger">*</span>
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(model => model.BatchNo, new { @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.BatchNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.DateOfManufacture, "Date Of Manufacture", new { @class = "control-label" })
+                            <span class="text-danger">*</span>
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(model => model.DateOfManufacture, new { @class = "form-control EngDate", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.DateOfManufacture, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.DateOfExpiry, "Date Of Expiry", new { @class = "control-label" })
+                            <span class="text-danger">*</span>
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(model => model.DateOfExpiry, new { @class = "form-control EngDate", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.DateOfExpiry, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-2">
+                            <input type="submit" id="btn" value="Save" class="btn btn-success" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

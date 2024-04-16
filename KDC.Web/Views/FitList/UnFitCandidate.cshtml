@@ -1,0 +1,110 @@
+﻿@model IEnumerable<KDC.DL.ViewModel.CandidateVM>
+@{
+	ViewBag.Title = "UnFitCandidate";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+                          function printPageArea(areaID) {
+                              document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href=""/>');
+                              var printContent = document.getElementById(areaID);
+                              var WinPrint = window.open('', '', 'width=900,height=650');
+                              WinPrint.document.write(printContent.innerHTML);
+                              WinPrint.document.close();
+                              WinPrint.focus();
+                              WinPrint.print();
+                              WinPrint.close();
+                          }
+</script>
+<section class="content-header">
+	<h1>Lab Report List</h1>
+	<ol class="breadcrumb">
+		<li class="list"><a href="@Url.Action("Index", "Candidate")"><i class="fa fa-arrow-left"></i> Candidate List </a></li>
+	</ol>
+</section>
+
+<section class="content">
+	<div class="box box-primary">
+		<div>
+			@using (Html.BeginForm())
+			{
+			@Html.AntiForgeryToken()
+				{
+
+				<form style="background:#eee" class="col-sm-12 p-10 mb-10">
+
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label>From Date:</label>
+							<input type="text" id="FromDate" name="FromDate" value="" class="form-control EngDate" />
+						</div>
+					</div>
+
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label>To Date:</label>
+							<input type="text" id="ToDate" name="ToDate" value="" class="form-control EngDate" />
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="form-group">
+							<label><span style="color: #EEEEEE"></span></label>
+							<input type="submit" class="form-control btn btn-primary" name="search" id="search" value="Search" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<a class="text-white btn btn-success form-control" href="javascript:void(0);" onclick="printPageArea('printableArea')">Print</a>
+
+					</div>
+				</form>
+				}
+			}
+		</div>
+		<div class="box-body">
+			<div class="row">
+				<div class="col-sm-12">
+					<div>
+						<center><h2>UNFIT</h2></center>
+						<b>Failed Candidate: </b> <b>@ViewBag.Failed</b>
+							<span class="pull-right">Date: <b>@ViewBag.Date</b></span>
+						
+						@*<span class="pull-right">Date: <b></b></span>*@
+					</div>
+					<div id="printableArea">
+						<div style="padding:5px;width:210mm;height:297mm">
+
+							@foreach (var item in Model)
+							{
+							<div style="width:32%;padding:5px;float:left">
+								<table style="border: 1px solid #000;width: 100%;font-size:12px;font-weight:bold">
+									<tr>
+										<td style="padding:10px">
+											S.No: @item.RVNoToday <br />
+
+											<img src="~/images/scanned/@item.PhotoScanned" height="72px" />
+
+										</td>
+										<td style="padding:10px">
+											@item.CandidateName <br />
+											Age: @item.Age &nbsp; &nbsp; &nbsp; <br />PP.No.@item.PassportNo
+										</td>
+									<tr>
+									<tr>
+										<td colspan="2">
+											<Center>
+												Remark <br> @item.UnfitRemarks
+
+											</Center>
+										</td>
+									</tr>
+								</table>
+							</div>
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

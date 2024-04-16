@@ -1,0 +1,148 @@
+﻿@model KDC.DL.Models.SC_User
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<section class="content-header">
+    <h1>
+        Add User
+    </h1>
+    <ol class="breadcrumb">
+        <li class="list"><a href="@Url.Action("Index", "User")"><i class="fa fa-arrow-left"></i> List </a></li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box">
+        <div class="box-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.FullName, "Full Name", new { @class = "control-label" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.Email, "Email", new { @class = "control-label" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        <span class="text-danger" id="errormsg"></span>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.UserName, "Username", new { @class = "control-label" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                        <span class="text-danger" id="errormsg"></span>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.Password, "Password", new { @class = "control-label" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @required = "required", @type = "Password" })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                        @Html.Label("Confirm Password", new { @class = "control-label" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div class="col-sm-3">
+                        <input class="form-control" id="ConfirmPassword" name="ConfirmPassword" type="password" required />
+                        <span class="text-danger" id="errormsg"></span>
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", id = "passwordErrorMessage" })
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.UserType, "User Type", new { @class = "control-label" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div class="col-sm-3">
+                        @*@Html.TextBoxFor(model => model.UserType, new { @class = "form-control", @required = "required" })*@
+                        @Html.DropDownListFor(model => model.UserType, null, "-- Select --", new { @class = "form-control", @required = "required"})
+                        @Html.ValidationMessageFor(model => model.UserType, "", new { @class = "text-danger" })
+                        <span class="text-danger" id="errormsg"></span>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.RegKey, "Registration Key", new { @class = "control-label" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.TextBoxFor(model => model.RegKey, new { @class = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.RegKey, "", new { @class = "text-danger" })
+                        <span class="text-danger" id="errormsg"></span>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.IsActive, "Is Active?", new { @class = "control-label" })
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.RadioButtonFor(model => model.IsActive, true, new { @checked = "checked" }) Yes &nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.RadioButtonFor(model => model.IsActive, false) No
+                        @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2">
+                        <input type="submit" id="btn" value="Save" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</section>
+
+<script>
+	$(document).ready(function () {
+		$("#Password, #ConfirmPassword").keyup(function () {
+			var passwordValue = $("#Password").val();
+			var confirmPasswordValue = $("#ConfirmPassword").val();
+
+			if (passwordValue != confirmPasswordValue) {
+                $('#passwordErrorMessage').html("Password does not match!");
+				$('#btn').attr("disabled", "disabled");
+			}
+			else {
+                $('#passwordErrorMessage').html("");
+				$('#btn').removeAttr("disabled");
+			}
+		});
+	});
+</script>

@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E4FC57DE-B886-4DC1-9BD2-6A662E16BCDA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KDC.DL</RootNamespace>
+    <AssemblyName>KDC.DL</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper">
+      <HintPath>..\KDC.Web\bin\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="DapperObjects\BloodGroupRepo.cs" />
+    <Compile Include="DapperObjects\CandidateRepo.cs" />
+    <Compile Include="DapperObjects\DBHelper.cs" />
+    <Compile Include="DapperObjects\DistrictRepo.cs" />
+    <Compile Include="DapperObjects\FitListRepo.cs" />
+    <Compile Include="DapperObjects\GetDropDown.cs" />
+    <Compile Include="DapperObjects\JobProfessionRepo.cs" />
+    <Compile Include="DapperObjects\LabEntryRepo.cs" />
+    <Compile Include="DapperObjects\LoginRepo.cs" />
+    <Compile Include="DapperObjects\MedicalReportTypeRepo.cs" />
+    <Compile Include="DapperObjects\OPDPatientRepo.cs" />
+    <Compile Include="DapperObjects\OrganizationSetupRepo.cs" />
+    <Compile Include="DapperObjects\PatientBillingRepo.cs" />
+    <Compile Include="DapperObjects\PatientLabTestBillingRepo.cs" />
+    <Compile Include="DapperObjects\PatientLabTestDetailRepo.cs" />
+    <Compile Include="DapperObjects\RefererRepo.cs" />
+    <Compile Include="DapperObjects\ReportRepo.cs" />
+    <Compile Include="DapperObjects\UserRepo.cs" />
+    <Compile Include="DapperObjects\VaccinationBatchRepo.cs" />
+    <Compile Include="DapperObjects\VaccinationTypeRepo.cs" />
+    <Compile Include="DapperObjects\VisaStampingCountryRepo.cs" />
+    <Compile Include="Models\ams_kdcdb.cs" />
+    <Compile Include="Models\BL_Patient.cs" />
+    <Compile Include="Models\BL_PatientLabTestBill.cs" />
+    <Compile Include="Models\BL_PatientLabTestDetail.cs" />
+    <Compile Include="Models\CD_Candidate.cs" />
+    <Compile Include="Models\MS_BloodGroupRH.cs" />
+    <Compile Include="Models\MS_District.cs" />
+    <Compile Include="Models\MS_Doctor.cs" />
+    <Compile Include="Models\MS_JobProfession.cs" />
+    <Compile Include="Models\MS_LabServiceGroup.cs" />
+    <Compile Include="Models\MS_LabServiceItem.cs" />
+    <Compile Include="Models\MS_MedicalReportType.cs" />
+    <Compile Include="Models\MS_OrganizationSetup.cs" />
+    <Compile Include="Models\MS_RecruitingAgency.cs" />
+    <Compile Include="Models\MS_Referer.cs" />
+    <Compile Include="Models\MS_VaccinationBatch.cs" />
+    <Compile Include="Models\MS_VaccinationType.cs" />
+    <Compile Include="Models\MS_VisaStampingCountry.cs" />
+    <Compile Include="Models\MS_Year.cs" />
+    <Compile Include="Models\OPD_Patient.cs" />
+    <Compile Include="Models\SC_User.cs" />
+    <Compile Include="Models\SV_Service.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\Basic.cs" />
+    <Compile Include="ViewModel\CandidateDetailVM.cs" />
+    <Compile Include="ViewModel\CandidateThumbVM.cs" />
+    <Compile Include="ViewModel\CandidateVM.cs" />
+    <Compile Include="ViewModel\LaboratoryExamVM.cs" />
+    <Compile Include="ViewModel\MedicalExamVM.cs" />
+    <Compile Include="ViewModel\MedicalStatusVM.cs" />
+    <Compile Include="ViewModel\OPDPatientVM.cs" />
+    <Compile Include="ViewModel\PathologyLabVM.cs" />
+    <Compile Include="ViewModel\PatientBillingVM.cs" />
+    <Compile Include="ViewModel\PatientBillVM.cs" />
+    <Compile Include="ViewModel\PatientLabTestDetailVM.cs" />
+    <Compile Include="ViewModel\SessionVM.cs" />
+    <Compile Include="ViewModel\VaccinationReportVM.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

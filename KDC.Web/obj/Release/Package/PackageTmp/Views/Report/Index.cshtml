@@ -1,0 +1,223 @@
+﻿@model KDC.DL.Models.CD_Candidate
+
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+	function printPageArea(areaID) {
+		document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="../assets/css/print.css"/>');
+		var printContent = document.getElementById(areaID);
+		var WinPrint = window.open('', '', 'width=900,height=650');
+		WinPrint.document.write(printContent.innerHTML);
+		WinPrint.document.close();
+		WinPrint.focus();
+		WinPrint.print();
+		WinPrint.close();
+	}
+</script>
+<div class="col-sm-12">
+	<h3>Medical Report</h3>
+	<div class="box box-primary">
+		<div class="box-body">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label>Lab No.</label>
+						<input type="text" class="form-control" name="" />
+					</div>
+				</div>
+
+
+				<div class="col-sm-2">
+					<div class="form-group">
+						<label><span style="color:#fff">print</span></label>
+						<input type="submit" class="form-control btn btn-primary" name="" value="Search" />
+					</div>
+				</div>
+
+				<div class="col-sm-2">
+					<div class="form-group">
+						<label><span style="color:#fff">print</span></label>
+						<a class="btn btn-success form-control" href="javascript:void(0);" onclick="printPageArea('printableArea')">Print</a>
+					</div>
+				</div>
+			</div>
+			<div id="printableArea">
+				<div style="font-size: 13px; font-family: sans-serif; width: 210mm; height: 297mm; background: url('../images/medical.jpg'); background-size: cover;">
+
+					<div style="margin-top: 124px; position: absolute;">
+						<table style="margin-left: 29px; width: 195mm;">
+							<tbody>
+								<tr>
+									<td style="border:1px solid transparent;text-align:center;padding:4px">FULLY AUTOMATED COMPUTERISED LABORATORY</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table style="margin-left: 29px; width: 195mm;">
+							<tbody>
+								<tr>
+									<td colspan="2" style="border-left: 1px solid transparent;border-top: 1px solid transparent;padding: 4px;font-weight: Bold;width: 325px;">Visa No. : <span style=""></span></td>
+									<td colspan="2" style="border-left: 1px solid transparent;border-top: 1px solid transparent;padding: 4px;font-weight: Bold;width: 273px;">Visa Date : <span style="font-weight: Bold"></span></td>
+									<td colspan="2" style="border-right: 1px solid transparent; border-left: 1px solid transparent; border-top: 1px solid transparent; padding: 4px; font-weight: Bold;">RQ No. : <span style="font-weight: Bold">E248531004</span></td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table valign="top" style="padding:100px;border-collapse: collapse;border: 2px solid #808080;width: 195mm;font-family: -webkit-body;font-size: 14px;margin-left: 29px;" border="1px" id="printTable">
+							<tbody>
+
+
+
+								<tr>
+									<td colspan="2" style="padding: 4px; border-right: 1px solid transparent">
+										Ref .Code : <span style="font-weight: Bold">18/L-1/ </span><br>
+										<span style="display: block; border-right: 1px solid transparent">Name : <span style="text-transform:uppercase;font-weight:Bold">SantiMaya Lama</span></span>
+										<span style="display: block; border-right: 1px solid transparent"> Country: <span style="text-transform: uppercase; font-weight: Bold">Kathmandu</span></span>
+									</td>
+									<td colspan="2" style="padding:4px">ID : 18/L-1/ <br> <span style="display:block;">P.P.NO. :<span style="font-weight: Bold"> 10387418</span></span></td>
+									<td valign="top" style="padding:4px">Height : <span style="font-weight:bold">149cm</span> <br> </td>
+									<td valign="top" style="padding:4px">Weight: <span style="font-weight:bold">60 kgs</span> <span style="display:block;">Date: <span style="font-weight: Bold">17/12/2018</span></span></td>
+								</tr>
+								<tr>
+									<td style="border-bottom: 1px solid transparent;padding: 4px;width: 135px;" class="">Hb</td>
+									<td style="border-bottom:1px solid transparent;padding:4px;font-weight:bold;width: 135px;">13.0 g%</td>
+									<td style="padding:4px" colspan="4">DC N 60% L 39% E01 % M_ </td>
+								</tr>
+								<tr>
+									<td style="border-bottom:1px solid transparent;padding:4px;">TC</td>
+									<td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">8400 /cumm</td>
+									<td colspan="4">Plates : <span style="font-weight:bold">184000 [150000 - 450000] cu.mm</span> </td>
+								</tr>
+								<tr>
+									<td style="border-bottom:1px solid transparent;padding:4px;">HIV 1/2</td>
+									<td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">Negative</td>
+									<td style="padding:4px;width: 94px;">Sugar</td>
+									<td style="padding: 4px; font-weight: bold">100 mg%</td>
+									<td style="padding:4px;width: 98px;">Creat</td>
+									<td style="padding: 4px; font-weight: bold">0.9 mg%</td>
+								</tr>
+								<tr>
+									<td style="border-bottom:1px solid transparent;padding:4px;">HBsAg</td>
+									<td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">Negative</td>
+									<td style="border-bottom:1px solid transparent;padding:4px;">Bill T /</td>
+									<td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">1.0 mg%</td>
+									<td style="border-bottom:1px solid transparent;padding:4px;">SGPT</td>
+									<td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">24 IU/L</td>
+								</tr>
+								<tr>
+									<td style="border-bottom:1px solid transparent;padding:4px;">Anti-HCV</td>
+									<td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">Negative</td>
+									<td style="border-bottom:1px solid transparent;padding:4px;">Albumin</td>
+									<td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">4.1 MG%</td>
+									<td style="border-bottom:1px solid transparent;padding:4px;">Urea</td>
+									<td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">22 mg%</td>
+								</tr>
+								<tr>
+									<td style="border-bottom:1px solid transparent;padding:4px;">TPHA</td>
+									<td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">Negative</td>
+									<td style="border-bottom:1px solid transparent;padding:4px;">Bill D /</td>
+									<td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">0.2 mg%</td>
+									<td style="border-bottom:1px solid transparent;padding:4px;">ESR 24</td>
+									<td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">2 mg%</td>
+								</tr>
+
+								<tr>
+									<td style="border-bottom:1px solid transparent;padding:4px;">VDRL</td>
+									<td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">Non Reactive</td>
+									<td style="border-bottom:1px solid transparent;padding:4px;">T.Pro</td>
+									<td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">7.2</td>
+									<td style="border-bottom:1px solid transparent;padding:4px;">GGT</td>
+									<td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">26</td>
+								</tr>
+								<tr>
+									<td style="border-bottom:1px solid transparent;padding:4px;">M.P.</td>
+									<td style="border-bottom: 1px solid transparent; padding: 4px; font-weight: bold">Not Found</td>
+									<td style="padding:4px">Alk.Pho</td>
+									<td style="padding: 4px; font-weight: bold">171</td>
+									<td style="padding:4px">SGOT</td>
+									<td style="padding: 4px; font-weight: bold">28 IU/L</td>
+								</tr>
+								<tr>
+									<td style="padding: 4px; border-bottom: 1px solid transparent">M.F.</td>
+									<td style="padding: 4px; border-bottom: 1px solid transparent; font-weight: bold; ">Not Found</td>
+									<td style="padding:4px" colspan="4" rowspan="2">
+										Blood Grouping &amp; RH. <span style="font-weight:bold">'O' +ve</span> <br>
+										Pregnancy: <span style="font-weight:bold">Negative</span>
+									</td>
+
+								</tr>
+								<tr>
+									<td style="padding: 4px; border-bottom: 1px solid transparent">Urine Re/Me</td>
+									<td style="padding: 4px; border-bottom: 1px solid transparent"></td>
+
+								</tr>
+								<tr>
+									<td style="padding: 4px; border-bottom: 1px solid transparent">Sugar</td>
+									<td style="padding: 4px; border-bottom: 1px solid transparent; font-weight: bold">Nill</td>
+									<td style="padding: 4px; border-bottom: 1px solid transparent" colspan="4" rowspan="3">
+										Other
+									</td>
+								</tr>
+								<tr>
+									<td style="padding: 4px; border-bottom: 1px solid transparent">Albumin</td>
+									<td style="padding: 4px; border-bottom: 1px solid transparent; font-weight: bold">Nill</td>
+								</tr>
+								<tr>
+									<td style="padding:4px">Stool RE</td>
+									<td style="padding: 4px; font-weight: bold">NO OCT</td>
+								</tr>
+
+
+								<tr>
+									<td colspan="6" style="padding:4px">Lab No:<span style="font-weight:bold"> 005188</span></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class="row mt-10">
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label>From Lab No.</label>
+						<input type="text" class="form-control" name="" />
+					</div>
+				</div>
+
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label>To Lab No.</label>
+						<input type="text" class="form-control" name="" />
+					</div>
+				</div>
+
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label><span style="color:#fff">print</span></label>
+						<input type="submit" class="form-control btn btn-primary" name="" value="Print" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="clearfix"></div>
+
+<script>
+	function printData() {
+		var divToPrint = document.getElementById("printTable");
+		newWin = window.open("");
+		newWin.document.write(divToPrint.outerHTML);
+		newWin.print();
+		newWin.close();
+	}
+
+	$('button').on('click', function () {
+		printData();
+	})
+</script>

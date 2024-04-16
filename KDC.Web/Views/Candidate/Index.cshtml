@@ -1,0 +1,195 @@
+﻿@model IEnumerable<KDC.DL.ViewModel.CandidateVM>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    function printPageArea(areaID) {
+        document.head.insertAdjacentHTML('beforeend', '');
+        var printContent = document.getElementById(areaID);
+        var WinPrint = window.open('', '', 'width=900,height=650');
+        WinPrint.document.write(printContent.innerHTML);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+        WinPrint.close();
+    }
+</script>
+<section class="content-header">
+    <h1>Candidate List</h1>
+    <ol class="breadcrumb">
+        <li class="list"><a href="@Url.Action("Create", "Candidate")"><i class="fa fa-plus-circle"></i> Add </a></li>
+        <li class="list"><a href="@Url.Action("GenerateRVNo","Candidate", new { @date = DateTime.Today.ToString("yyyy-MM-dd") })"><i class="fa fa-plus-circle"></i> Generate RV</a></li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-body pt-10">
+            <div>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    {
+
+                        <form style="background:#eee" class="col-sm-12 p-10 mb-10">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Lab No.</label>
+                                    <input type="text" class="form-control" name="LabCode" id="LabCode" />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Year</label>
+                                    @Html.DropDownList("Year", null, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Country</label>
+                                    @Html.DropDownList("Country", null, "-- Select --", new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>From Date:</label>
+                                    <input type="text" id="FromDate" name="FromDate" value="" class="form-control EngDate" />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>To Date:</label>
+                                    <input type="text" id="ToDate" name="ToDate" value="" class="form-control EngDate" />
+                                </div>
+                            </div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Status</label>
+									<div class="">
+										<input type="radio" id="All" name="Status" value="All" checked /> All &nbsp;&nbsp;
+										<input type="radio" id="New" name="Status" value="New" /> New &nbsp;&nbsp;
+										<input type="radio" id="Pending" name="Status" value="Pending" /> Pending &nbsp;&nbsp;
+										<input type="radio" id="Fit" name="Status" value="Fit" /> Fit &nbsp;&nbsp;
+										<input type="radio" id="Unfit" name="Status" value="Unfit" /> Unfit &nbsp;&nbsp;
+									</div>
+								</div>
+							</div>
+
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label><span style="color: #EEEEEE"></span></label>
+                                    <input type="submit" class="form-control btn btn-primary" name="search" id="search" value="Search" />
+                                </div>
+                            </div>
+                        </form>
+                    }
+                }
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="table-responsive">
+                <table id="example" class="table table-bordered table-striped table-condensed">
+                    <thead>
+                        <tr class="">
+                            <th>
+                                Lab No
+                            </th>
+                            <th>
+                                Candidate
+                            </th>
+                            <th>
+                                GCC Slip No
+                            </th>
+                            @*<th>
+                                    @Html.DisplayName("Passport No")
+                                </th>*@
+                            <th>
+                                Passport No
+                            </th>
+                            <th>Mofa No</th>
+                            <th>Country</th>
+                            <th>Entered Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.LabCode </td>
+                                <td>@item.CandidateName</td>
+                                <td width="200px">
+                                    @Html.DisplayFor(modelItem => item.GccHMC)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PassportNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RQNoManpower)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Country)
+                                </td>
+
+                                <td>
+                                    @(item.CandidateDetailsEnteredDate != null ? ((DateTime)item.CandidateDetailsEnteredDate).ToString("yyyy-MM-dd") : "")
+                                </td>
+
+                                <td class="hidden">
+                                    @item.Barcode
+                                    <div id="printableArea_@item.Barcode">
+                                        <svg id="B_@item.Barcode" style="margin-top:-35px; height:90px"></svg>
+                                        <script>
+                                        JsBarcode("#B_@item.Barcode", "@item.Barcode");
+                                        </script>
+                                    </div>
+                                </td>
+
+                                @*<td>
+                                        @if (item.LabTestEnteredBy > 0)
+                                        {
+                                            <a href="Report/LaboratoryReport/@item.CandidateID"><span class="btn bg-purple btn-xs">View</span></a>
+                                        }
+                                        else
+                                        {
+                                            <span>Waiting..</span>
+                                        }
+                                    </td>*@
+                                <td>
+                                    <a class="btn btn-xs btn-success" href="javascript:void(0);" onclick="printPageArea('printableArea_@item.Barcode')">Print Barcode</a>
+                                    <a href="~/Candidate/Edit/@item.CandidateID"><span class="btn btn-success btn-xs">Edit</span></a>
+                                    <a href="~/Candidate/Details/@item.CandidateID"> <span class="btn btn-primary btn-xs">Detail</span></a>
+                                    @*@if (Convert.ToInt32(Session["UserId"]) == 1 && Convert.ToString(Session["UserType"] == "Admin" && item.Status == "Pending")*@
+									@if (Convert.ToString(Session["UserType"]) == "Admin" && item.Status == "Pending")
+                                    {
+                                       <a href="@Url.Action("ChangeStatus", "Candidate", new { @id = item.CandidateID})"><span class="btn btn-primary btn-xs">Status</span></a>
+                                    }
+									@if (Convert.ToString(Session["UserType"]) == "Admin" && (item.Status == "Fit" || item.Status == "Unfit"))
+									{
+										<a href="@Url.Action("ChangeStatus", "Candidate", new { @id = item.CandidateID})"><span class="btn btn-primary btn-xs">Edit Status</span></a>
+									}
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+@*<script>
+        function ChangeStatus(id) {
+
+        }
+    </script>*@

@@ -1,0 +1,157 @@
+﻿@model IEnumerable<KDC.DL.Models.CD_Candidate>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+                      <script>
+                          function printPageArea(areaID) {
+                              document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href=""/>');
+                              var printContent = document.getElementById(areaID);
+                              var WinPrint = window.open('', '', 'width=900,height=650');
+                              WinPrint.document.write(printContent.innerHTML);
+                              WinPrint.document.close();
+                              WinPrint.focus();
+                              WinPrint.print();
+                              WinPrint.close();
+                          }
+                      </script>
+<section class="content-header">
+    <h1>Lab Report List</h1>
+    <ol class="breadcrumb">
+       
+        <li class="list"><a href="@Url.Action("Index", "Candidate")"><i class="fa fa-arrow-left"></i> Candidate List </a></li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-3">
+                        <a class="text-white btn btn-success form-control" href="javascript:void(0);" onclick="printPageArea('printableArea')">Print</a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div id="printableArea">
+                       <div>
+                        @foreach (var item in Model)
+{
+    <div style="width:50%; float:left;">
+        <div style="padding:10px;padding-bottom:0px; font-size:13px;">
+            <center>
+                <strong>
+                    <span style="padding: 5px 10px; font-size: 14px;">Kantipur Diagnostic Center</span><br />
+
+                    New Baneshwor, Shankhamul <br />
+                    Marg, Kathmandu, Nepal <br />
+                    Tel: 4782386,4780992,
+                </strong>
+            </center>
+            <table width="100%;" style="font-size:13px;margin-top:-10px">
+                <tr>
+                    <td style="width:45px">No</td>
+                    <td>:</td>
+                    <td style="padding-left:10px;font-weight:bold">@item.CandidateID</td>
+                    <td colspan="5" style="text-align: right; font-weight: bold">@DateTime.Today.ToString("MM/dd/yyyy")</td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td>:</td>
+                    <td colspan="6" style="padding-left: 10px; font-weight: bold" >@item.CandidateName</td>
+
+                </tr>
+                <tr>
+                    <td>Sex</td>
+                    <td>:</td>
+                    <td style="padding-left: 10px; font-weight: bold">@item.Gender</td>
+                    <td style="width:28px">Age</td>
+                    <td>:</td>
+                    <td style="font-weight: bold">26</td>
+                    <td style="text-align:right">Passport No : </td>
+                    <td style="text-align: right; font-weight: bold">@item.PassportNo</td>
+                </tr>
+             </table>
+            
+            <table width="100%" border="1px" style="font-size: 13px; margin-top: 2px; border-collapse: collapse" >
+                <thead>
+                    <tr>
+                        <th style="padding:3px">X-Ray</th>
+                        <th style="padding:3px">Lab No.</th>
+                        <th style="padding:3px">Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding:3px">RV-5</td>
+                        <td style="padding:3px"><center>@item.LabCode</center></td>
+                        <td style="padding:3px"><center>
+                            <img style="width:55px; height:77px" src="../../images/@item.CandidateID/CandidatePhoto/@item.PhotoScanned" /></center></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table width="100%" border="0px" style="font-size: 13px; margin-top: 2px; border-collapse: collapse">
+                <thead>
+                    <tr>
+                        <td>Website</td>
+                        <td>:</td>
+                        <td>http://www.kantipurdiagnosctr.com/ </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Email</td>
+                        <td>:</td>
+                        <td>report@kantipurdiagnosctr.com </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+}</div>
+                        </div>
+                        @*<div class="col-sm-6">
+                <center>
+                    <h3>Kantipur Diagnostic Center</h3>
+
+                    New Baneshwor, Shankhamul <br />
+                    Marg, Kathmandu, Nepal <br />
+                    Tel: 4782386,4780992,4784994
+
+                </center>
+                <div>
+                    No:    &nbsp;&nbsp;
+                    Date: <b>@DateTime.Today.ToString("MM/dd/yyyy")</b> <br />
+                    Name:  <b>NABIN GHISING</b> <br />
+                    Sex: <b>M</b>
+                    Age: <b>26</b>
+                    Passport No: <b>073738383</b>
+                </div>
+                <div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>X-Ray</th>
+                                <th>Lab No.</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>RV-5</td>
+                                <td>00333</td>
+                                <td>Photo</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>*@
+                    </div>
+            </div>
+        </div>
+    </div>
+</section>
+
